@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>2.3 决策树模型使用 | Xdh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="数据集划分留出法（Hold-out）我们现在用一个简单的例子来看看留出法是如何运作的。 123456789101112131415161718192021222324from sklearn.model_selection import train_test_split# 简单的数据X=[[1,2,3,4],   [11,12,13,14],   [21,22,23,24],   [31,32,3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.3 决策树模型使用">
+<meta property="og:url" content="http://yoursite.com/2019/05/23/2-3-决策树模型使用/index.html">
+<meta property="og:site_name" content="Xdh">
+<meta property="og:description" content="数据集划分留出法（Hold-out）我们现在用一个简单的例子来看看留出法是如何运作的。 123456789101112131415161718192021222324from sklearn.model_selection import train_test_split# 简单的数据X=[[1,2,3,4],   [11,12,13,14],   [21,22,23,24],   [31,32,3">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T08:04:47.079Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2.3 决策树模型使用">
+<meta name="twitter:description" content="数据集划分留出法（Hold-out）我们现在用一个简单的例子来看看留出法是如何运作的。 123456789101112131415161718192021222324from sklearn.model_selection import train_test_split# 简单的数据X=[[1,2,3,4],   [11,12,13,14],   [21,22,23,24],   [31,32,3">
+  
+    <link rel="alternate" href="/atom.xml" title="Xdh" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="index.search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2-3-决策树模型使用" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      2.3 决策树模型使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/05/23/2-3-决策树模型使用/" class="article-date">
+	  <time datetime="2019-05-23T07:56:09.000Z" itemprop="datePublished">2019-05-23</time>
+	</a>
+
+      
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="数据集划分"><a href="#数据集划分" class="headerlink" title="数据集划分"></a>数据集划分</h2><h3 id="留出法（Hold-out）"><a href="#留出法（Hold-out）" class="headerlink" title="留出法（Hold-out）"></a>留出法（Hold-out）</h3><p>我们现在用一个简单的例子来看看留出法是如何运作的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># 简单的数据</span></span><br><span class="line">X=[[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],</span><br><span class="line">   [<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>],</span><br><span class="line">   [<span class="number">21</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">24</span>],</span><br><span class="line">   [<span class="number">31</span>,<span class="number">32</span>,<span class="number">33</span>,<span class="number">34</span>],</span><br><span class="line">   [<span class="number">41</span>,<span class="number">42</span>,<span class="number">43</span>,<span class="number">44</span>],</span><br><span class="line">   [<span class="number">51</span>,<span class="number">52</span>,<span class="number">53</span>,<span class="number">54</span>],</span><br><span class="line">   [<span class="number">61</span>,<span class="number">62</span>,<span class="number">63</span>,<span class="number">64</span>],</span><br><span class="line">   [<span class="number">71</span>,<span class="number">72</span>,<span class="number">73</span>,<span class="number">74</span>]]</span><br><span class="line"></span><br><span class="line">y=[<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用留出法划分数据集 - test_size:样本占比    random_state:随机数生成器</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, </span><br><span class="line">                                                    test_size=<span class="number">0.5</span>, random_state=<span class="number">0</span>) </span><br><span class="line"></span><br><span class="line"><span class="comment"># X的划分情形</span></span><br><span class="line">print(<span class="string">"X_train="</span>, X_train)</span><br><span class="line">print(<span class="string">"X_test="</span>, X_test)</span><br><span class="line"><span class="comment"># Y的划分情形</span></span><br><span class="line">print(<span class="string">"y_train="</span>, y_train)</span><br><span class="line">print(<span class="string">"y_test="</span>, y_test)</span><br></pre></td></tr></table></figure>
+<pre><code>X_train= [[31, 32, 33, 34], [1, 2, 3, 4], [51, 52, 53, 54], [41, 42, 43, 44]]
+X_test= [[61, 62, 63, 64], [21, 22, 23, 24], [11, 12, 13, 14], [71, 72, 73, 74]]
+y_train= [0, 1, 1, 1]
+y_test= [0, 0, 1, 0]
+</code></pre><h4 id="波士顿房价案例"><a href="#波士顿房价案例" class="headerlink" title="波士顿房价案例"></a>波士顿房价案例</h4><p>看完留出法的运作方式后，现在让我们使用上节课的波士顿房价例子（boston_price.csv），观察使用留出法划分的数据拟合决策树模型后的预测效果。  </p>
+<p>首先，让我们再次观察数据集的内容。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">price_data = pd.read_csv(<span class="string">'boston_price.csv'</span>)</span><br><span class="line">price_data.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>RM</th><th>LSTAT</th><th>PTRATIO</th><th>MDEV</th></tr></thead><tbody><tr><th>0</th><td>6.575</td><td>4.98</td><td>15.3</td><td>504000.0</td></tr><tr><th>1</th><td>6.421</td><td>9.14</td><td>17.8</td><td>453600.0</td></tr><tr><th>2</th><td>7.185</td><td>4.03</td><td>17.8</td><td>728700.0</td></tr><tr><th>3</th><td>6.998</td><td>2.94</td><td>18.7</td><td>701400.0</td></tr><tr><th>4</th><td>7.147</td><td>5.33</td><td>18.7</td><td>760200.0</td></tr></tbody></table></div>
+
+
+
+<p>将房间数、低社会阶层比例和师生比订为X，房价中位数则是Y。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X = price_data[[<span class="string">'RM'</span>,<span class="string">'LSTAT'</span>,<span class="string">'PTRATIO'</span>]]</span><br><span class="line">Y = price_data[<span class="string">'MDEV'</span>]</span><br></pre></td></tr></table></figure>
+<p>和之前不同的，现在我们针对数据集，使用留出法做划分的动作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=<span class="number">0.5</span>, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>最后，将X_train和y_train放进决策树模型进行拟合，并用X_test和y_test去评估模型预测的准确度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeRegressor</span><br><span class="line"></span><br><span class="line">dt = DecisionTreeRegressor(max_depth=<span class="number">4</span>)</span><br><span class="line">dt.fit(X_train,y_train)</span><br><span class="line">dt.score(X_test, y_test)</span><br></pre></td></tr></table></figure>
+<pre><code>0.7601306276189493
+</code></pre><h4 id="母亲数据集分析"><a href="#母亲数据集分析" class="headerlink" title="母亲数据集分析"></a>母亲数据集分析</h4><p>导入母亲情况数据集(mom_data_revised.csv)，并输出前5行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">mom_data = pd.read_csv(<span class="string">'mom_data_revised.csv'</span>, index_col=<span class="number">0</span>)</span><br><span class="line">mom_data.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>0</th><td>9</td><td>89.0</td><td>6</td><td>3</td><td>1</td><td>1</td><td>3</td><td>45567</td><td>43</td><td>2</td><td>41220.0</td><td>1</td><td>2</td></tr><tr><th>1</th><td>4</td><td>75.0</td><td>13</td><td>3</td><td>2</td><td>2</td><td>0</td><td>20959</td><td>78</td><td>2</td><td>40202.0</td><td>2</td><td>0</td></tr><tr><th>2</th><td>3</td><td>28.0</td><td>14</td><td>2</td><td>2</td><td>4</td><td>0</td><td>5098</td><td>29</td><td>2</td><td>21774.0</td><td>4</td><td>6</td></tr><tr><th>3</th><td>13</td><td>113.0</td><td>7</td><td>3</td><td>1</td><td>1</td><td>1</td><td>57812</td><td>14</td><td>3</td><td>60610.0</td><td>1</td><td>1</td></tr><tr><th>4</th><td>15</td><td>80.0</td><td>5</td><td>3</td><td>1</td><td>3</td><td>2</td><td>64082</td><td>27</td><td>4</td><td>47115.0</td><td>3</td><td>1</td></tr></tbody></table></div>
+
+
+
+<p>提取数据集：<br><br>‘REGION 1979’和’TOTAL NET FAMILY INCOME 1979’作为X，’TOTAL NET FAMILY INCOME 2014’作为Y</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X = mom_data[[<span class="string">'TOTAL NET FAMILY INCOME 1979'</span>,<span class="string">'REGION 1979'</span>]]</span><br><span class="line">Y = mom_data[<span class="string">'TOTAL NET FAMILY INCOME 2014'</span>]</span><br></pre></td></tr></table></figure>
+<p>划分训练集和测试集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 划分数据集</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=<span class="number">0.25</span>, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>使用训练集进行模型构建和拟合。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeRegressor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建模型：参数可以调整，详细意义和影响会在下节课揭晓</span></span><br><span class="line">dt = DecisionTreeRegressor(max_depth=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行模型拟合</span></span><br><span class="line">dt.fit(X_train, y_train)</span><br></pre></td></tr></table></figure>
+<pre><code>DecisionTreeRegressor(criterion=&apos;mse&apos;, max_depth=2, max_features=None,
+           max_leaf_nodes=None, min_impurity_decrease=0.0,
+           min_impurity_split=None, min_samples_leaf=1,
+           min_samples_split=2, min_weight_fraction_leaf=0.0,
+           presort=False, random_state=None, splitter=&apos;best&apos;)
+</code></pre><p>使用测试集评判模型优劣</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 评估准确度</span></span><br><span class="line">dt.score(X_test, y_test)</span><br></pre></td></tr></table></figure>
+<pre><code>0.6651016744604565
+</code></pre><h3 id="随堂练习-1"><a href="#随堂练习-1" class="headerlink" title="随堂练习 1"></a>随堂练习 1</h3><p>提取母亲数据集中的数据：<br>‘HIGHEST GRADE COMPLETED’和’TOTAL IQ SCORE’作为X，’TOTAL NET FAMILY INCOME 2014’作为Y</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X = mom_data[[<span class="string">'HIGHEST GRADE COMPLETED'</span>,<span class="string">'TOTAL IQ SCORE'</span>]]</span><br><span class="line">Y = mom_data[<span class="string">'TOTAL NET FAMILY INCOME 2014'</span>]</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-2"><a href="#随堂练习-2" class="headerlink" title="随堂练习 2"></a>随堂练习 2</h3><p>将数据集分为训练集以及测试集(test_size=0.3)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=<span class="number">0.3</span>, random_state=<span class="number">0</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-3"><a href="#随堂练习-3" class="headerlink" title="随堂练习 3"></a>随堂练习 3</h3><p>构建决策树回归树(max_depth=2)进行拟合并打印测试集的score</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">dt = DecisionTreeRegressor(max_depth=<span class="number">2</span>)</span><br><span class="line">dt.fit(X_train, y_train)</span><br><span class="line">dt.score(X_test, y_test)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>0.7587765615967225
+</code></pre><h3 id="交叉验证法（Cross-Validation）"><a href="#交叉验证法（Cross-Validation）" class="headerlink" title="交叉验证法（Cross Validation）"></a>交叉验证法（Cross Validation）</h3><h4 id="for简单例子"><a href="#for简单例子" class="headerlink" title="for简单例子"></a>for简单例子</h4><p>以此打印’Python’五个字母</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="string">'Python'</span>:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+<pre><code>P
+y
+t
+h
+o
+n
+</code></pre><p>我们可以使用循环语句帮助我们反复执行程序，例如，我们可以使用for语句帮我们叠加数字，从1加到100。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 总和的预设值</span></span><br><span class="line">s=<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 叠加数字</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">101</span>):</span><br><span class="line">    s = s + i</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 最终的总和</span></span><br><span class="line">print(s)</span><br></pre></td></tr></table></figure>
+<pre><code>5050
+</code></pre><p>for语句不止可以在数字中遍历，也可以对多变量（元素对）进行循环遍历。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2-d list</span></span><br><span class="line">list_test = [[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">3</span>,<span class="number">4</span>],[<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>,<span class="number">8</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一次同时循环两个变量：i, j</span></span><br><span class="line"><span class="keyword">for</span> i, j <span class="keyword">in</span> list_test:</span><br><span class="line">    print(<span class="string">'i = &#123;0&#125;, j = &#123;1&#125;'</span>.format(i, j))</span><br></pre></td></tr></table></figure>
+<pre><code>i = 1, j = 2
+i = 3, j = 4
+i = 5, j = 6
+i = 7, j = 8
+</code></pre><p>for语句也可以多层进行——使用for语句实现九九乘法表就是两层for循环语句嵌套的实例。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 前面数字</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="comment"># 后面数字</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, i+<span class="number">1</span>):</span><br><span class="line">        <span class="comment"># 两者相乘</span></span><br><span class="line">        d = i * j</span><br><span class="line">        print(<span class="string">'%d*%d=%-2d'</span> % (i, j, d), end = <span class="string">' '</span> )</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 每一个i结束就打印一次</span></span><br><span class="line">    print()</span><br></pre></td></tr></table></figure>
+<pre><code>1*1=1  
+2*1=2  2*2=4  
+3*1=3  3*2=6  3*3=9  
+4*1=4  4*2=8  4*3=12 4*4=16 
+5*1=5  5*2=10 5*3=15 5*4=20 5*5=25 
+6*1=6  6*2=12 6*3=18 6*4=24 6*5=30 6*6=36 
+7*1=7  7*2=14 7*3=21 7*4=28 7*5=35 7*6=42 7*7=49 
+8*1=8  8*2=16 8*3=24 8*4=32 8*5=40 8*6=48 8*7=56 8*8=64 
+9*1=9  9*2=18 9*3=27 9*4=36 9*5=45 9*6=54 9*7=63 9*8=72 9*9=81 
+</code></pre><h3 id="K-Fold"><a href="#K-Fold" class="headerlink" title="K-Fold"></a>K-Fold</h3><p>我们看下k-Fold是如何运行的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold</span><br><span class="line"><span class="comment"># 简单的数据</span></span><br><span class="line">X=np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],</span><br><span class="line">   [<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">14</span>],</span><br><span class="line">   [<span class="number">21</span>,<span class="number">22</span>,<span class="number">23</span>,<span class="number">24</span>],</span><br><span class="line">   [<span class="number">31</span>,<span class="number">32</span>,<span class="number">33</span>,<span class="number">34</span>],</span><br><span class="line">   [<span class="number">41</span>,<span class="number">42</span>,<span class="number">43</span>,<span class="number">44</span>],</span><br><span class="line">   [<span class="number">51</span>,<span class="number">52</span>,<span class="number">53</span>,<span class="number">54</span>],</span><br><span class="line">   [<span class="number">61</span>,<span class="number">62</span>,<span class="number">63</span>,<span class="number">64</span>],</span><br><span class="line">   [<span class="number">71</span>,<span class="number">72</span>,<span class="number">73</span>,<span class="number">74</span>]])</span><br><span class="line"></span><br><span class="line">y=np.array([<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#将折数设置为4</span></span><br><span class="line">KF = KFold(n_splits=<span class="number">4</span>,shuffle=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>k-fold后的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> train_index, test_index <span class="keyword">in</span> KF.split(X,y):</span><br><span class="line">    print(<span class="string">'Train Dataset'</span>)</span><br><span class="line">    print(X[train_index])</span><br><span class="line">    print(y[train_index])</span><br><span class="line">    print(<span class="string">'Test Dataset'</span>)</span><br><span class="line">    print(X[test_index])</span><br><span class="line">    print(y[test_index])</span><br><span class="line">    print(<span class="string">'--------'</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Train Dataset
+[[21 22 23 24]
+ [31 32 33 34]
+ [41 42 43 44]
+ [51 52 53 54]
+ [61 62 63 64]
+ [71 72 73 74]]
+[0 0 1 1 0 0]
+Test Dataset
+[[ 1  2  3  4]
+ [11 12 13 14]]
+[1 1]
+--------
+Train Dataset
+[[ 1  2  3  4]
+ [11 12 13 14]
+ [41 42 43 44]
+ [51 52 53 54]
+ [61 62 63 64]
+ [71 72 73 74]]
+[1 1 1 1 0 0]
+Test Dataset
+[[21 22 23 24]
+ [31 32 33 34]]
+[0 0]
+--------
+Train Dataset
+[[ 1  2  3  4]
+ [11 12 13 14]
+ [21 22 23 24]
+ [31 32 33 34]
+ [61 62 63 64]
+ [71 72 73 74]]
+[1 1 0 0 0 0]
+Test Dataset
+[[41 42 43 44]
+ [51 52 53 54]]
+[1 1]
+--------
+Train Dataset
+[[ 1  2  3  4]
+ [11 12 13 14]
+ [21 22 23 24]
+ [31 32 33 34]
+ [41 42 43 44]
+ [51 52 53 54]]
+[1 1 0 0 1 1]
+Test Dataset
+[[61 62 63 64]
+ [71 72 73 74]]
+[0 0]
+--------
+</code></pre><h4 id="K-折（K-Fold）：波士顿房价案例"><a href="#K-折（K-Fold）：波士顿房价案例" class="headerlink" title="K-折（K-Fold）：波士顿房价案例"></a>K-折（K-Fold）：波士顿房价案例</h4><p>我们再次使用波士顿房价的案例。这一次，我们将数据集使用k-折方式划分。<br>首先，先让我们观察一下经过k-折方式划分的训练集和测试集分别长什么样子。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold</span><br><span class="line"></span><br><span class="line">X = price_data[[<span class="string">'RM'</span>,<span class="string">'LSTAT'</span>,<span class="string">'PTRATIO'</span>]]</span><br><span class="line">Y = price_data[<span class="string">'MDEV'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#将折数设置为5，不进行随机采样操作</span></span><br><span class="line">KF = KFold(n_splits=<span class="number">5</span>,shuffle=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>接着，我们将划分好的数据集分别放进模型中进行拟合。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeRegressor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建构模型</span></span><br><span class="line">dt_price_kfold = DecisionTreeRegressor(max_depth=<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终准确度的预设值</span></span><br><span class="line">price_score = <span class="number">0</span></span><br><span class="line">k_fold_price = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用for语句将划分出的5组数据索引代入</span></span><br><span class="line"><span class="keyword">for</span> train_index, test_index <span class="keyword">in</span> KF.split(X,Y):</span><br><span class="line">    <span class="comment"># 使用训练集拟合</span></span><br><span class="line">    dt_price_kfold.fit(X.iloc[train_index], Y[train_index])</span><br><span class="line">    <span class="comment"># 使用测试集评估，将每一次评估的数值叠加</span></span><br><span class="line">    price_score += dt_price_kfold.score(X.iloc[test_index], Y.iloc[test_index])</span><br><span class="line">    <span class="comment"># 将每一次评估的结果存储</span></span><br><span class="line">    k_fold_price.append(dt_price_kfold.score(X.iloc[test_index],Y.iloc[test_index]))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终看5次评估结果的平均数</span></span><br><span class="line"><span class="keyword">print</span> (price_score / <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>0.5450223138431061
+</code></pre><p>观察看看每一次划分出来的数据集拟合出的模型预测结果如何。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.plot([k_fold <span class="keyword">for</span> k_fold <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">6</span>)], k_fold_price, linewidth=<span class="number">2</span>)</span><br><span class="line">plt.title(<span class="string">"Numbers----Score"</span>)</span><br><span class="line">plt.xlabel(<span class="string">'Numbers'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'Score'</span>)</span><br><span class="line">plt.xticks(np.arange(<span class="number">1</span>, <span class="number">6</span>, step=<span class="number">1</span>))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;Figure size 640x480 with 1 Axes&gt;
+</code></pre><h3 id="随堂练习-4"><a href="#随堂练习-4" class="headerlink" title="随堂练习 4"></a>随堂练习 4</h3><p>提取mom_data中的’TOTAL NET FAMILY INCOME 1979’,’REGION 1979’作为X，’TOTAL NET FAMILY INCOME 2014’作为Y</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X = mom_data[[<span class="string">'TOTAL NET FAMILY INCOME 1979'</span>,<span class="string">'REGION 1979'</span>]]</span><br><span class="line">Y = mom_data[<span class="string">'TOTAL NET FAMILY INCOME 2014'</span>]</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-5"><a href="#随堂练习-5" class="headerlink" title="随堂练习 5"></a>随堂练习 5</h3><ol>
+<li>运用k-fold进行数据切分(KF = KFold(n_splits=5,shuffle=False))<br></li>
+<li>构建决策树回归模型(DecisionTreeRegressor())</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">KF = KFold(n_splits=<span class="number">5</span>,shuffle=<span class="literal">False</span>)</span><br><span class="line">dt_kfold = DecisionTreeRegressor(max_depth=<span class="number">2</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-6"><a href="#随堂练习-6" class="headerlink" title="随堂练习 6"></a>随堂练习 6</h3><p>针对k-fold后的数据集进行决策树回归模型的预测，打印出模型score的平均值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line">income_score = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line"><span class="keyword">for</span> train_index, test_index <span class="keyword">in</span> KF.split(X, Y):</span><br><span class="line">    dt_kfold.fit(X.iloc[train_index], Y.iloc[train_index])</span><br><span class="line">    income_score += dt_kfold.score(X.iloc[test_index], Y.iloc[test_index])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终看5次评估结果的平均数</span></span><br><span class="line">print(income_score / <span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>0.6646540979627125
+</code></pre><h3 id="课后练习-1"><a href="#课后练习-1" class="headerlink" title="课后练习 1"></a>课后练习 1</h3><p>用for循环计算20的阶乘(20！)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">result = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">21</span>):</span><br><span class="line">    result = result*i</span><br><span class="line">    </span><br><span class="line">print(result)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>2432902008176640000
+</code></pre><h3 id="课后练习-2"><a href="#课后练习-2" class="headerlink" title="课后练习 2"></a>课后练习 2</h3><p>导入综合数据集(mom_student_data.csv)。提取’EMPLOYMENT STATUS 2014’和’TOTAL NET FAMILY INCOME 2014’作为X，’piatmath_percent’作为Y。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">df = pd.read_csv(<span class="string">'mom_student_data.csv'</span>, index_col=<span class="number">0</span>)</span><br><span class="line">X = df[[<span class="string">'EMPLOYMENT STATUS 2014'</span>,<span class="string">'TOTAL NET FAMILY INCOME 2014'</span>]]</span><br><span class="line">Y = df[<span class="string">'Score'</span>]</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="课后练习-3"><a href="#课后练习-3" class="headerlink" title="课后练习 3"></a>课后练习 3</h3><p>运用train_test_split切分训练和测试数据集(test_size=0.25)，然后构建决策回归树，然后打印出测试数据集的score。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=<span class="number">0.25</span>, random_state=<span class="number">0</span>)</span><br><span class="line">dt = DecisionTreeRegressor(max_depth=<span class="number">2</span>)</span><br><span class="line">dt.fit(X_train, y_train)</span><br><span class="line">dt.score(X_test, y_test)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>0.4578224279233941
+</code></pre><h3 id="课后练习-4"><a href="#课后练习-4" class="headerlink" title="课后练习 4"></a>课后练习 4</h3><p>运用KFold切分训练和测试数据集(n_splits=5)，然后构建决策回归树，然后打印出测试数据集的平均score。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">KF = KFold(n_splits=<span class="number">5</span>,shuffle=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">score = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> train_index, test_index <span class="keyword">in</span> KF.split(X, Y):</span><br><span class="line">    dt_kfold.fit(X.iloc[train_index], Y.iloc[train_index])</span><br><span class="line">    score += dt_kfold.score(X.iloc[test_index], Y.iloc[test_index])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最终看5次评估结果的平均数</span></span><br><span class="line">print(score / <span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>0.4488234535632075
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>Xdh
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/05/23/2-3-决策树模型使用/" target="_blank" title="2.3 决策树模型使用">http://yoursite.com/2019/05/23/2-3-决策树模型使用/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+</div></div>
+      
+      
+      
+        
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/23/2-4-决策树模型评估/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2.4 决策树模型评估</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据集划分"><span class="nav-number">1.</span> <span class="nav-text">数据集划分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#留出法（Hold-out）"><span class="nav-number">1.1.</span> <span class="nav-text">留出法（Hold-out）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#波士顿房价案例"><span class="nav-number">1.1.1.</span> <span class="nav-text">波士顿房价案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#母亲数据集分析"><span class="nav-number">1.1.2.</span> <span class="nav-text">母亲数据集分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-1"><span class="nav-number">1.2.</span> <span class="nav-text">随堂练习 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-2"><span class="nav-number">1.3.</span> <span class="nav-text">随堂练习 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-3"><span class="nav-number">1.4.</span> <span class="nav-text">随堂练习 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉验证法（Cross-Validation）"><span class="nav-number">1.5.</span> <span class="nav-text">交叉验证法（Cross Validation）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#for简单例子"><span class="nav-number">1.5.1.</span> <span class="nav-text">for简单例子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#K-Fold"><span class="nav-number">1.6.</span> <span class="nav-text">K-Fold</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#K-折（K-Fold）：波士顿房价案例"><span class="nav-number">1.6.1.</span> <span class="nav-text">K-折（K-Fold）：波士顿房价案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-4"><span class="nav-number">1.7.</span> <span class="nav-text">随堂练习 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-5"><span class="nav-number">1.8.</span> <span class="nav-text">随堂练习 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-6"><span class="nav-number">1.9.</span> <span class="nav-text">随堂练习 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-1"><span class="nav-number">1.10.</span> <span class="nav-text">课后练习 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-2"><span class="nav-number">1.11.</span> <span class="nav-text">课后练习 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-3"><span class="nav-number">1.12.</span> <span class="nav-text">课后练习 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-4"><span class="nav-number">1.13.</span> <span class="nav-text">课后练习 4</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2019 - 2019 Xdh All Rights Reserved.</p>
+	      
+	      
+  		   	<p id="copyRightCn">Xdh hold copyright</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Xdh
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 Xdh All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

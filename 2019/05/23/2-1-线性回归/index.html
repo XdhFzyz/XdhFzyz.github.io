@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>2.1 线性回归 | Xdh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="一元线性回归可视化1234import pandas as pdimport numpy as npimport matplotlib.pyplot as pltimport seaborn as sns 导入数据集 12student_mom_revised = pd.read_csv(&apos;student_mom_revised.csv&apos;, index_col=0)student_mom_revi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.1 线性回归">
+<meta property="og:url" content="http://yoursite.com/2019/05/23/2-1-线性回归/index.html">
+<meta property="og:site_name" content="Xdh">
+<meta property="og:description" content="一元线性回归可视化1234import pandas as pdimport numpy as npimport matplotlib.pyplot as pltimport seaborn as sns 导入数据集 12student_mom_revised = pd.read_csv(&apos;student_mom_revised.csv&apos;, index_col=0)student_mom_revi">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_5_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_7_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_14_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_16_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_18_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_20_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_22_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_24_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_42_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_51_1.png">
+<meta property="og:updated_time" content="2019-05-24T08:46:58.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2.1 线性回归">
+<meta name="twitter:description" content="一元线性回归可视化1234import pandas as pdimport numpy as npimport matplotlib.pyplot as pltimport seaborn as sns 导入数据集 12student_mom_revised = pd.read_csv(&apos;student_mom_revised.csv&apos;, index_col=0)student_mom_revi">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/23/2-1-线性回归/output_5_1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Xdh" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="index.search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2-1-线性回归" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      2.1 线性回归
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/05/23/2-1-线性回归/" class="article-date">
+	  <time datetime="2019-05-23T07:49:41.000Z" itemprop="datePublished">2019-05-23</time>
+	</a>
+
+      
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一元线性回归可视化"><a href="#一元线性回归可视化" class="headerlink" title="一元线性回归可视化"></a>一元线性回归可视化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br></pre></td></tr></table></figure>
+<p>导入数据集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">student_mom_revised = pd.read_csv(<span class="string">'student_mom_revised.csv'</span>, index_col=<span class="number">0</span>)</span><br><span class="line">student_mom_revised.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>0</th><td>9</td><td>White</td><td>MALE</td><td>1979</td><td>46</td><td>9</td><td>89.0</td><td>6</td><td>White</td><td>Employed</td><td>NORTHEAST</td><td>Divorced</td><td>45567</td><td>43</td><td>Unemployed</td><td>41220.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>1</th><td>7043</td><td>Black</td><td>MALE</td><td>1981</td><td>47</td><td>4</td><td>75.0</td><td>13</td><td>White</td><td>Unemployed</td><td>NORTH CENTRAL</td><td>Never Married</td><td>20959</td><td>78</td><td>Unemployed</td><td>40202.0</td><td>NORTH CENTRAL</td><td>Never Married</td></tr><tr><th>2</th><td>8797</td><td>HISPANIC</td><td>FEMALE</td><td>1990</td><td>25</td><td>3</td><td>28.0</td><td>14</td><td>Black</td><td>Unemployed</td><td>WEST</td><td>Never Married</td><td>5098</td><td>29</td><td>Unemployed</td><td>21774.0</td><td>WEST</td><td>Widowed</td></tr><tr><th>3</th><td>3040</td><td>Black</td><td>MALE</td><td>1982</td><td>28</td><td>13</td><td>113.0</td><td>7</td><td>White</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>57812</td><td>14</td><td>Out of Labor</td><td>60610.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>4</th><td>1137</td><td>White</td><td>MALE</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>5</td><td>White</td><td>Employed</td><td>SOUTH</td><td>Separated</td><td>64082</td><td>27</td><td>In Active Forces</td><td>47115.0</td><td>SOUTH</td><td>Married</td></tr></tbody></table></div>
+
+
+
+<p>拟合母亲的智商(TOTAL IQ SCORE)和学生学业成绩(Score)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sns.set(style=<span class="string">"darkgrid"</span>)</span><br><span class="line">g = sns.regplot(<span class="string">'TOTAL IQ SCORE'</span>, <span class="string">"Score"</span>, </span><br><span class="line">                data=student_mom_revised,</span><br><span class="line">                scatter_kws=&#123;<span class="string">'s'</span>: <span class="number">10</span>, <span class="string">'color'</span>:<span class="string">'skyblue'</span>,<span class="string">'alpha'</span>: <span class="number">0.5</span>&#125;,</span><br><span class="line">                line_kws=&#123;<span class="string">"color"</span>:<span class="string">"g"</span>,<span class="string">"alpha"</span>:<span class="number">0.7</span>,<span class="string">"lw"</span>:<span class="number">2</span>&#125;)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>/root/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+</code></pre><p><img src="/2019/05/23/2-1-线性回归/output_5_1.png" alt="png"></p>
+<p>如何获得拟合后曲线的斜率与截距？<br><br>1.提取拟合后的数据点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = g.get_lines()[<span class="number">0</span>].get_xdata()</span><br><span class="line">y = g.get_lines()[<span class="number">0</span>].get_ydata()</span><br><span class="line"></span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/23/2-1-线性回归/output_7_0.png" alt="png"></p>
+<p>拟合曲线参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats</span><br><span class="line"></span><br><span class="line">slope, intercept, r_value, p_value, std_err = stats.linregress(x=g.get_lines()[<span class="number">0</span>].get_xdata(),</span><br><span class="line">                                                               y=g.get_lines()[<span class="number">0</span>].get_ydata())</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(slope)</span><br><span class="line">print(intercept)</span><br></pre></td></tr></table></figure>
+<pre><code>0.4261880887166798
+16.913131648115936
+</code></pre><p>提取2000年后出生的学生</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">children_after_00 = student_mom_revised[student_mom_revised[<span class="string">'birthyear'</span>]&gt;<span class="number">2000</span>]</span><br></pre></td></tr></table></figure>
+<p>通过jointplot()制作回归图，并显示X和Y的分布</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sns.set(style=<span class="string">"darkgrid"</span>)</span><br><span class="line">g = sns.jointplot(<span class="string">'TOTAL NET FAMILY INCOME 2014'</span>, <span class="string">"Score"</span>, </span><br><span class="line">                data=children_after_00,kind=<span class="string">'reg'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>/root/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+</code></pre><p><img src="/2019/05/23/2-1-线性回归/output_14_1.png" alt="png"></p>
+<p>将jointplot()中参数kind的值变为hex,我们可以通过一个一个六边形(Hexagon)来展示两个变量的相互关系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sns.set(style=<span class="string">"darkgrid"</span>)</span><br><span class="line">g = sns.jointplot(<span class="string">'TOTAL NET FAMILY INCOME 2014'</span>, <span class="string">"Score"</span>, </span><br><span class="line">                data=children_after_00,kind=<span class="string">'hex'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>/root/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+</code></pre><p><img src="/2019/05/23/2-1-线性回归/output_16_1.png" alt="png"></p>
+<p>针对children_after_00，分析不同2014年不同婚姻状况(MARITAL STATUS 2014),家庭年收入与学业成绩的关系</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sns.lmplot(y=<span class="string">"Score"</span>, x=<span class="string">"TOTAL NET FAMILY INCOME 2014"</span>, </span><br><span class="line">           col=<span class="string">"MARITAL STATUS 2014"</span>, hue=<span class="string">"MARITAL STATUS 2014"</span>,</span><br><span class="line">           data=children_after_00, col_wrap=<span class="number">5</span>, size=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>/root/anaconda3/lib/python3.6/site-packages/seaborn/regression.py:546: UserWarning: The `size` paramter has been renamed to `height`; please update your code.
+  warnings.warn(msg, UserWarning)
+/root/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+</code></pre><p><img src="/2019/05/23/2-1-线性回归/output_18_1.png" alt="png"></p>
+<h3 id="随堂练习-1"><a href="#随堂练习-1" class="headerlink" title="随堂练习 1"></a>随堂练习 1</h3><p>针对children_after_00,通过一元线性回归拟合AFQT和Score的关系</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">g = sns.regplot(<span class="string">'AFQT'</span>, <span class="string">"Score"</span>, data=children_after_00)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>/root/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+</code></pre><p><img src="/2019/05/23/2-1-线性回归/output_20_1.png" alt="png"></p>
+<h3 id="随堂练习-2"><a href="#随堂练习-2" class="headerlink" title="随堂练习 2"></a>随堂练习 2</h3><p>通过六边形图(Hexagon)展示AFQT和Score的关系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">g = sns.jointplot(<span class="string">'AFQT'</span>, <span class="string">"Score"</span>, </span><br><span class="line">                data=children_after_00,kind=<span class="string">'hex'</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>/root/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+</code></pre><p><img src="/2019/05/23/2-1-线性回归/output_22_1.png" alt="png"></p>
+<h3 id="随堂练习-3"><a href="#随堂练习-3" class="headerlink" title="随堂练习 3"></a>随堂练习 3</h3><p>针对children_after_00，分析不同母亲不同的种族(RACIAL),母亲智商(TOTAL IQ SCORE)与家庭收入(TOTAL NET FAMILY INCOME 2014)的关系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">sns.lmplot(x=<span class="string">"TOTAL IQ SCORE"</span>, y=<span class="string">"TOTAL NET FAMILY INCOME 2014"</span>, </span><br><span class="line">           col=<span class="string">"RACIAL"</span>, hue=<span class="string">"RACIAL"</span>,</span><br><span class="line">           data=children_after_00, col_wrap=<span class="number">5</span>, size=<span class="number">4</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>/root/anaconda3/lib/python3.6/site-packages/seaborn/regression.py:546: UserWarning: The `size` paramter has been renamed to `height`; please update your code.
+  warnings.warn(msg, UserWarning)
+/root/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+</code></pre><p><img src="/2019/05/23/2-1-线性回归/output_24_1.png" alt="png"></p>
+<h3 id="字符串编码"><a href="#字符串编码" class="headerlink" title="字符串编码"></a>字符串编码</h3><p>数据集中部分数据集不是数字而是字符串，比如婚姻状况，种族，这些变量对于学业成绩同样有很大的影响，我们需要把这些字符串变成数字。<br><br>我们首先复制数据集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">children_00_revised = children_after_00.copy()</span><br></pre></td></tr></table></figure>
+<p>将children_00_revised中childsex的MALE改为1以及FEMALE改为2</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">children_00_revised[<span class="string">'childsex'</span>]=children_00_revised[<span class="string">'childsex'</span>].map(&#123;<span class="string">'MALE'</span>:<span class="number">1</span>, <span class="string">'FEMALE'</span>:<span class="number">2</span>&#125;)</span><br><span class="line">children_00_revised.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>4</th><td>1137</td><td>White</td><td>1</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>5</td><td>White</td><td>Employed</td><td>SOUTH</td><td>Separated</td><td>64082</td><td>27</td><td>In Active Forces</td><td>47115.0</td><td>SOUTH</td><td>Married</td></tr><tr><th>79</th><td>3536</td><td>White</td><td>1</td><td>2003</td><td>36</td><td>6</td><td>82.0</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Never Married</td><td>36679</td><td>54</td><td>Out of Labor</td><td>24751.0</td><td>NORTH CENTRAL</td><td>Separated</td></tr><tr><th>89</th><td>8854</td><td>Black</td><td>1</td><td>2004</td><td>39</td><td>2</td><td>27.0</td><td>13</td><td>Black</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Separated</td><td>20411</td><td>38</td><td>Out of Labor</td><td>4652.0</td><td>NORTH CENTRAL</td><td>Separated</td></tr><tr><th>151</th><td>6409</td><td>Black</td><td>2</td><td>2004</td><td>43</td><td>18</td><td>115.0</td><td>13</td><td>HISPANIC</td><td>In Active Forces</td><td>NORTH CENTRAL</td><td>Divorced</td><td>61332</td><td>34</td><td>Employed</td><td>51250.0</td><td>NORTH CENTRAL</td><td>Separated</td></tr><tr><th>237</th><td>7000</td><td>HISPANIC</td><td>2</td><td>2001</td><td>79</td><td>16</td><td>83.0</td><td>14</td><td>HISPANIC</td><td>Employed</td><td>NORTH CENTRAL</td><td>Married</td><td>44021</td><td>30</td><td>Unemployed</td><td>60945.0</td><td>SOUTH</td><td>Married</td></tr></tbody></table></div>
+
+
+
+<p>将children_00_revised中childrace的HISPANIC改为1，Black改为2，White改为3</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">children_00_revised[<span class="string">'childrace'</span>]=children_00_revised[<span class="string">'childrace'</span>].map(&#123;<span class="string">'HISPANIC'</span>:<span class="number">1</span>, <span class="string">'Black'</span>:<span class="number">2</span>, <span class="string">'White'</span>:<span class="number">3</span>&#125;)</span><br><span class="line">children_00_revised.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>4</th><td>1137</td><td>3</td><td>1</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>5</td><td>White</td><td>Employed</td><td>SOUTH</td><td>Separated</td><td>64082</td><td>27</td><td>In Active Forces</td><td>47115.0</td><td>SOUTH</td><td>Married</td></tr><tr><th>79</th><td>3536</td><td>3</td><td>1</td><td>2003</td><td>36</td><td>6</td><td>82.0</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Never Married</td><td>36679</td><td>54</td><td>Out of Labor</td><td>24751.0</td><td>NORTH CENTRAL</td><td>Separated</td></tr><tr><th>89</th><td>8854</td><td>2</td><td>1</td><td>2004</td><td>39</td><td>2</td><td>27.0</td><td>13</td><td>Black</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Separated</td><td>20411</td><td>38</td><td>Out of Labor</td><td>4652.0</td><td>NORTH CENTRAL</td><td>Separated</td></tr><tr><th>151</th><td>6409</td><td>2</td><td>2</td><td>2004</td><td>43</td><td>18</td><td>115.0</td><td>13</td><td>HISPANIC</td><td>In Active Forces</td><td>NORTH CENTRAL</td><td>Divorced</td><td>61332</td><td>34</td><td>Employed</td><td>51250.0</td><td>NORTH CENTRAL</td><td>Separated</td></tr><tr><th>237</th><td>7000</td><td>1</td><td>2</td><td>2001</td><td>79</td><td>16</td><td>83.0</td><td>14</td><td>HISPANIC</td><td>Employed</td><td>NORTH CENTRAL</td><td>Married</td><td>44021</td><td>30</td><td>Unemployed</td><td>60945.0</td><td>SOUTH</td><td>Married</td></tr></tbody></table></div>
+
+
+
+<h3 id="随堂练习-4"><a href="#随堂练习-4" class="headerlink" title="随堂练习 4"></a>随堂练习 4</h3><p>将children_00_revised中RACIAL的HISPANIC改为1，Black改为2，White改为3。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">children_00_revised[<span class="string">'RACIAL'</span>]=children_00_revised[<span class="string">'RACIAL'</span>].map(&#123;<span class="string">'HISPANIC'</span>:<span class="number">1</span>, <span class="string">'Black'</span>:<span class="number">2</span>, <span class="string">'White'</span>:<span class="number">3</span>&#125;)</span><br><span class="line">children_00_revised.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>4</th><td>1137</td><td>3</td><td>1</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>5</td><td>3</td><td>Employed</td><td>SOUTH</td><td>Separated</td><td>64082</td><td>27</td><td>In Active Forces</td><td>47115.0</td><td>SOUTH</td><td>Married</td></tr><tr><th>79</th><td>3536</td><td>3</td><td>1</td><td>2003</td><td>36</td><td>6</td><td>82.0</td><td>5</td><td>2</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Never Married</td><td>36679</td><td>54</td><td>Out of Labor</td><td>24751.0</td><td>NORTH CENTRAL</td><td>Separated</td></tr><tr><th>89</th><td>8854</td><td>2</td><td>1</td><td>2004</td><td>39</td><td>2</td><td>27.0</td><td>13</td><td>2</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Separated</td><td>20411</td><td>38</td><td>Out of Labor</td><td>4652.0</td><td>NORTH CENTRAL</td><td>Separated</td></tr><tr><th>151</th><td>6409</td><td>2</td><td>2</td><td>2004</td><td>43</td><td>18</td><td>115.0</td><td>13</td><td>1</td><td>In Active Forces</td><td>NORTH CENTRAL</td><td>Divorced</td><td>61332</td><td>34</td><td>Employed</td><td>51250.0</td><td>NORTH CENTRAL</td><td>Separated</td></tr><tr><th>237</th><td>7000</td><td>1</td><td>2</td><td>2001</td><td>79</td><td>16</td><td>83.0</td><td>14</td><td>1</td><td>Employed</td><td>NORTH CENTRAL</td><td>Married</td><td>44021</td><td>30</td><td>Unemployed</td><td>60945.0</td><td>SOUTH</td><td>Married</td></tr></tbody></table></div>
+
+
+
+<h3 id="随堂练习-5"><a href="#随堂练习-5" class="headerlink" title="随堂练习 5"></a>随堂练习 5</h3><p>将children_00_revised复制为children_revised_v2<br><br>将children_revised_v2中MARITAL STATUS 2014的Never Married改为0，Married改为1，Separated改为2, Divorced改为3，REMARRIED改为5，Widowed改为6</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">children_revised_v2 = children_00_revised.copy()</span><br><span class="line">children_revised_v2[<span class="string">'MARITAL STATUS 2014'</span>]=children_revised_v2[<span class="string">'MARITAL STATUS 2014'</span>].map(&#123;<span class="string">'Never Married'</span>:<span class="number">0</span>,  </span><br><span class="line">                                                                                           <span class="string">'Married'</span>:<span class="number">1</span>, </span><br><span class="line">                                                                                           <span class="string">'Separated'</span>:<span class="number">2</span>, </span><br><span class="line">                                                                                           <span class="string">'Divorced'</span>:<span class="number">3</span>, </span><br><span class="line">                                                                                           <span class="string">'REMARRIED'</span>:<span class="number">5</span>, </span><br><span class="line">                                                                                           <span class="string">'Widowed'</span>:<span class="number">5</span>&#125;)</span><br><span class="line">children_revised_v2.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>4</th><td>1137</td><td>3</td><td>1</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>5</td><td>3</td><td>Employed</td><td>SOUTH</td><td>Separated</td><td>64082</td><td>27</td><td>In Active Forces</td><td>47115.0</td><td>SOUTH</td><td>1</td></tr><tr><th>79</th><td>3536</td><td>3</td><td>1</td><td>2003</td><td>36</td><td>6</td><td>82.0</td><td>5</td><td>2</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Never Married</td><td>36679</td><td>54</td><td>Out of Labor</td><td>24751.0</td><td>NORTH CENTRAL</td><td>2</td></tr><tr><th>89</th><td>8854</td><td>2</td><td>1</td><td>2004</td><td>39</td><td>2</td><td>27.0</td><td>13</td><td>2</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Separated</td><td>20411</td><td>38</td><td>Out of Labor</td><td>4652.0</td><td>NORTH CENTRAL</td><td>2</td></tr><tr><th>151</th><td>6409</td><td>2</td><td>2</td><td>2004</td><td>43</td><td>18</td><td>115.0</td><td>13</td><td>1</td><td>In Active Forces</td><td>NORTH CENTRAL</td><td>Divorced</td><td>61332</td><td>34</td><td>Employed</td><td>51250.0</td><td>NORTH CENTRAL</td><td>2</td></tr><tr><th>237</th><td>7000</td><td>1</td><td>2</td><td>2001</td><td>79</td><td>16</td><td>83.0</td><td>14</td><td>1</td><td>Employed</td><td>NORTH CENTRAL</td><td>Married</td><td>44021</td><td>30</td><td>Unemployed</td><td>60945.0</td><td>SOUTH</td><td>1</td></tr></tbody></table></div>
+
+
+
+<h3 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> linear_model</span><br></pre></td></tr></table></figure>
+<p>从零开始构建一元线性回归<br><br>拟合children_revised_v2中白人母亲(‘RACIAL’==2)的TOTAL IQ SCORE和Score的关系</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X=children_revised_v2[children_revised_v2[<span class="string">'RACIAL'</span>]==<span class="number">2</span>][<span class="string">'TOTAL IQ SCORE'</span>]</span><br><span class="line">y=children_revised_v2[children_revised_v2[<span class="string">'RACIAL'</span>]==<span class="number">2</span>][<span class="string">'Score'</span>]</span><br></pre></td></tr></table></figure>
+<p>构建回归模型并展示预测结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">regr = linear_model.LinearRegression()</span><br><span class="line">regr.fit(np.array(X).reshape(<span class="number">-1</span>,<span class="number">1</span>), y)</span><br><span class="line">print(<span class="string">'Coefficients:%s, intercept %.2f'</span>%(regr.coef_, regr.intercept_))</span><br><span class="line">print(<span class="string">'Score %.3f'</span> % regr.score(np.array(X).reshape(<span class="number">-1</span>,<span class="number">1</span>),y))</span><br></pre></td></tr></table></figure>
+<pre><code>Coefficients:[0.38378059], intercept 14.68
+Score 0.476
+</code></pre><p>模型结果可视化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">X_pred = np.arange(<span class="number">0</span>, np.max(X), <span class="number">10</span>)</span><br><span class="line">y_pred = regr.predict(X_pred.reshape(<span class="number">-1</span>,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">plt.plot(X_pred, y_pred, c=<span class="string">'g'</span>)</span><br><span class="line">plt.scatter(X, y)</span><br><span class="line">plt.legend([<span class="string">'$y=0.38x+14.68$'</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/23/2-1-线性回归/output_42_0.png" alt="png"></p>
+<p>从零构建多元线性回归<br><br>拟合children_revised_v2中白人母亲(‘RACIAL’==2)的TOTAL IQ SCORE，TOTAL NET FAMILY INCOME 2014，MARITAL STATUS 2014和Score的关系</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X=children_revised_v2[children_revised_v2[<span class="string">'RACIAL'</span>]==<span class="number">2</span>][[<span class="string">'TOTAL IQ SCORE'</span>,</span><br><span class="line">                                                         <span class="string">'TOTAL NET FAMILY INCOME 2014'</span>,</span><br><span class="line">                                                         <span class="string">'MARITAL STATUS 2014'</span>]]</span><br><span class="line">y=children_revised_v2[children_revised_v2[<span class="string">'RACIAL'</span>]==<span class="number">2</span>][<span class="string">'Score'</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets, linear_model</span><br><span class="line">regr = linear_model.LinearRegression()</span><br><span class="line">regr.fit(X, y)</span><br><span class="line">print(<span class="string">'Coefficients:%s, intercept %.2f'</span>%(regr.coef_, regr.intercept_))</span><br><span class="line">print(<span class="string">'Score %.3f'</span> % regr.score(X,y))</span><br></pre></td></tr></table></figure>
+<pre><code>Coefficients:[3.43557255e-01 1.30563685e-04 1.99288314e+00], intercept 9.36
+Score 0.506
+</code></pre><h3 id="随堂练习-6"><a href="#随堂练习-6" class="headerlink" title="随堂练习 6"></a>随堂练习 6</h3><p>在children_revised_v2中提取白人母亲的TOTAL IQ SCORE作为X，白人母亲的TOTAL NET FAMILY INCOME 2014作为y</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X=children_revised_v2[children_revised_v2[<span class="string">'RACIAL'</span>]==<span class="number">2</span>][<span class="string">'TOTAL IQ SCORE'</span>]</span><br><span class="line">y=children_revised_v2[children_revised_v2[<span class="string">'RACIAL'</span>]==<span class="number">2</span>][<span class="string">'TOTAL NET FAMILY INCOME 2014'</span>]</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-7"><a href="#随堂练习-7" class="headerlink" title="随堂练习 7"></a>随堂练习 7</h3><p>以上题中的X和y构建一元线性回归模型，打印出模型的Score。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">regr = linear_model.LinearRegression()</span><br><span class="line">regr.fit(np.array(X).reshape(<span class="number">-1</span>,<span class="number">1</span>), y)</span><br><span class="line">print(<span class="string">'Score %.3f'</span> % regr.score(np.array(X).reshape(<span class="number">-1</span>,<span class="number">1</span>),y))</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>Score 0.575
+</code></pre><h3 id="课后练习-1"><a href="#课后练习-1" class="headerlink" title="课后练习 1"></a>课后练习 1</h3><p>针对children_revised_v2,使用regplot展示TOTAL NET FAMILY INCOME 2014和Score的线性关系</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">g = sns.regplot(<span class="string">'TOTAL NET FAMILY INCOME 2014'</span>, <span class="string">'Score'</span>, data=children_revised_v2)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<pre><code>/root/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+</code></pre><p><img src="/2019/05/23/2-1-线性回归/output_51_1.png" alt="png"></p>
+<h3 id="课后练习-2"><a href="#课后练习-2" class="headerlink" title="课后练习 2"></a>课后练习 2</h3><p>将children_revised_v2中REGION 2014的NORTHEAST改为1，NORTH CENTRAL改为2，SOUTH改为3, WEST改为4。<br><br>并显示前5行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">children_revised_v2[<span class="string">'REGION 2014'</span>]=children_revised_v2[<span class="string">'REGION 2014'</span>].map(&#123;<span class="string">'NORTHEAST'</span>:<span class="number">1</span>,</span><br><span class="line">                                                                           <span class="string">'NORTH CENTRAL'</span>:<span class="number">2</span>, </span><br><span class="line">                                                                           <span class="string">'SOUTH'</span>:<span class="number">3</span>, </span><br><span class="line">                                                                           <span class="string">'WEST'</span>:<span class="number">4</span>&#125;)</span><br><span class="line">children_revised_v2.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>4</th><td>1137</td><td>3</td><td>1</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>5</td><td>3</td><td>Employed</td><td>SOUTH</td><td>Separated</td><td>64082</td><td>27</td><td>In Active Forces</td><td>47115.0</td><td>3</td><td>1</td></tr><tr><th>79</th><td>3536</td><td>3</td><td>1</td><td>2003</td><td>36</td><td>6</td><td>82.0</td><td>5</td><td>2</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Never Married</td><td>36679</td><td>54</td><td>Out of Labor</td><td>24751.0</td><td>2</td><td>2</td></tr><tr><th>89</th><td>8854</td><td>2</td><td>1</td><td>2004</td><td>39</td><td>2</td><td>27.0</td><td>13</td><td>2</td><td>Out of Labor</td><td>NORTH CENTRAL</td><td>Separated</td><td>20411</td><td>38</td><td>Out of Labor</td><td>4652.0</td><td>2</td><td>2</td></tr><tr><th>151</th><td>6409</td><td>2</td><td>2</td><td>2004</td><td>43</td><td>18</td><td>115.0</td><td>13</td><td>1</td><td>In Active Forces</td><td>NORTH CENTRAL</td><td>Divorced</td><td>61332</td><td>34</td><td>Employed</td><td>51250.0</td><td>2</td><td>2</td></tr><tr><th>237</th><td>7000</td><td>1</td><td>2</td><td>2001</td><td>79</td><td>16</td><td>83.0</td><td>14</td><td>1</td><td>Employed</td><td>NORTH CENTRAL</td><td>Married</td><td>44021</td><td>30</td><td>Unemployed</td><td>60945.0</td><td>3</td><td>1</td></tr></tbody></table></div>
+
+
+
+<h3 id="课后练习-3"><a href="#课后练习-3" class="headerlink" title="课后练习 3"></a>课后练习 3</h3><p>提取children_revised_v2中白人母亲(‘RACIAL’==2)的TOTAL IQ SCORE，TOTAL NET FAMILY INCOME 2014，REGION 2014和Score的关系。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X=children_revised_v2[children_revised_v2[<span class="string">'RACIAL'</span>]==<span class="number">2</span>][[<span class="string">'TOTAL IQ SCORE'</span>,</span><br><span class="line">                                                         <span class="string">'TOTAL NET FAMILY INCOME 2014'</span>,</span><br><span class="line">                                                         <span class="string">'REGION 2014'</span>]]</span><br><span class="line">y=children_revised_v2[children_revised_v2[<span class="string">'RACIAL'</span>]==<span class="number">2</span>][<span class="string">'Score'</span>]</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="课后练习-4"><a href="#课后练习-4" class="headerlink" title="课后练习 4"></a>课后练习 4</h3><p>拟合上题中X和y的线性关系，打印出模型中各变量的系数以及模型的score值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">regr = linear_model.LinearRegression()</span><br><span class="line">regr.fit(X, y)</span><br><span class="line">print(<span class="string">'Coefficients:%s, intercept %.2f'</span>%(regr.coef_, regr.intercept_))</span><br><span class="line">print(<span class="string">'Score %.3f'</span> % regr.score(X,y))</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>Coefficients:[ 3.06128361e-01  1.90233958e-04 -2.57011642e+00], intercept 20.18
+Score 0.499
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>Xdh
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/05/23/2-1-线性回归/" target="_blank" title="2.1 线性回归">http://yoursite.com/2019/05/23/2-1-线性回归/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+</div></div>
+      
+      
+      
+        
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/23/2-2-决策树模型简介/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          2.2 决策树模型简介
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/23/1-4-母亲对孩子的影响/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">1.4 母亲对孩子的影响</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一元线性回归可视化"><span class="nav-number">1.</span> <span class="nav-text">一元线性回归可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-1"><span class="nav-number">2.</span> <span class="nav-text">随堂练习 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-2"><span class="nav-number">3.</span> <span class="nav-text">随堂练习 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-3"><span class="nav-number">4.</span> <span class="nav-text">随堂练习 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串编码"><span class="nav-number">5.</span> <span class="nav-text">字符串编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-4"><span class="nav-number">6.</span> <span class="nav-text">随堂练习 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-5"><span class="nav-number">7.</span> <span class="nav-text">随堂练习 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多元线性回归"><span class="nav-number">8.</span> <span class="nav-text">多元线性回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-6"><span class="nav-number">9.</span> <span class="nav-text">随堂练习 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-7"><span class="nav-number">10.</span> <span class="nav-text">随堂练习 7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-1"><span class="nav-number">11.</span> <span class="nav-text">课后练习 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-2"><span class="nav-number">12.</span> <span class="nav-text">课后练习 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-3"><span class="nav-number">13.</span> <span class="nav-text">课后练习 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-4"><span class="nav-number">14.</span> <span class="nav-text">课后练习 4</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2019 - 2019 Xdh All Rights Reserved.</p>
+	      
+	      
+  		   	<p id="copyRightCn">Xdh hold copyright</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Xdh
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 Xdh All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

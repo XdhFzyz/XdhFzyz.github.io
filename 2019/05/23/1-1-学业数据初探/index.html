@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>1.1-学业数据初探 | Xdh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="学生数据集初探导入学生数据集 123import pandas as pdstudent_data_origin=pd.read_csv(&apos;student_data_origin.csv&apos;, index_col=0) 显示数据集的前5行 1student_data_origin.head(5)     .dataframe tbody tr th:only-of-type {        ver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1.1-学业数据初探">
+<meta property="og:url" content="http://yoursite.com/2019/05/23/1-1-学业数据初探/index.html">
+<meta property="og:site_name" content="Xdh">
+<meta property="og:description" content="学生数据集初探导入学生数据集 123import pandas as pdstudent_data_origin=pd.read_csv(&apos;student_data_origin.csv&apos;, index_col=0) 显示数据集的前5行 1student_data_origin.head(5)     .dataframe tbody tr th:only-of-type {        ver">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T08:00:29.503Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1.1-学业数据初探">
+<meta name="twitter:description" content="学生数据集初探导入学生数据集 123import pandas as pdstudent_data_origin=pd.read_csv(&apos;student_data_origin.csv&apos;, index_col=0) 显示数据集的前5行 1student_data_origin.head(5)     .dataframe tbody tr th:only-of-type {        ver">
+  
+    <link rel="alternate" href="/atom.xml" title="Xdh" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="index.search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-1-1-学业数据初探" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      1.1-学业数据初探
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/05/23/1-1-学业数据初探/" class="article-date">
+	  <time datetime="2019-05-23T07:46:45.000Z" itemprop="datePublished">2019-05-23</time>
+	</a>
+
+      
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="学生数据集初探"><a href="#学生数据集初探" class="headerlink" title="学生数据集初探"></a>学生数据集初探</h3><p>导入学生数据集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">student_data_origin=pd.read_csv(<span class="string">'student_data_origin.csv'</span>, index_col=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>显示数据集的前5行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">student_data_origin.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th></tr></thead><tbody><tr><th>0</th><td>9</td><td>White</td><td>MALE</td><td>1979</td><td>46</td></tr><tr><th>1</th><td>7043</td><td>Black</td><td>MALE</td><td>1981</td><td>47</td></tr><tr><th>2</th><td>8797</td><td>HISPANIC</td><td>FEMALE</td><td>1990</td><td>25</td></tr><tr><th>3</th><td>3040</td><td>Black</td><td>MALE</td><td>1982</td><td>28</td></tr><tr><th>4</th><td>1137</td><td>White</td><td>MALE</td><td>2001</td><td>78</td></tr></tbody></table>    </div>    
+
+
+
+<p>显示数据集的列数与行数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">student_data_origin.shape</span><br></pre></td></tr></table></figure>
+<pre><code>(10875, 5)
+</code></pre><p>查看数据集是否完整？是否含有缺失值？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">student_data_origin.isnull().any()</span><br></pre></td></tr></table></figure>
+<pre><code>PID          False
+childrace     True
+childsex     False
+birthyear    False
+Score        False
+dtype: bool
+</code></pre><p>显示含有缺失值的行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">student_data_origin[student_data_origin.isnull().values==<span class="literal">True</span>]</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th></tr></thead><tbody><tr><th>7412</th><td>10732</td><td>NaN</td><td>MALE</td><td>1981</td><td>32</td></tr></tbody></table></div>    
+
+
+<p>整个数据集只有一行含有缺失值，那么最简单，最直接的处理方法就是删除这一行。<br><br>之后的课程会介绍如何填充这些缺失值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">student_data_origin.dropna(axis=<span class="number">0</span>, how=<span class="string">'any'</span>, inplace=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>再次查看是否含有缺失值？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">student_data_origin.isnull().any()</span><br></pre></td></tr></table></figure>
+<pre><code>PID          False
+childrace    False
+childsex     False
+birthyear    False
+Score        False
+dtype: bool
+</code></pre><h3 id="随堂练习-1"><a href="#随堂练习-1" class="headerlink" title="随堂练习 1"></a>随堂练习 1</h3><p>导入母亲数据集(mom_data_origin.csv)并显示前5行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_data_v2 = pd.read_csv(<span class="string">'mom_data_origin.csv'</span>, index_col=<span class="number">0</span>)</span><br><span class="line">mom_data_v2.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>0</th><td>1</td><td>15</td><td>106.0</td><td>5</td><td>HISPANIC</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>71920</td><td>12</td><td>Employed</td><td>56329.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>1</th><td>2</td><td>15</td><td>105.0</td><td>5</td><td>HISPANIC</td><td>Unemployed</td><td>NORTHEAST</td><td>Separated</td><td>67265</td><td>12</td><td>Employed</td><td>51346.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>2</th><td>3</td><td>6</td><td>69.0</td><td>5</td><td>HISPANIC</td><td>Out of Labor</td><td>NORTHEAST</td><td>Never Married</td><td>26234</td><td>51</td><td>Unemployed</td><td>45465.0</td><td>WEST</td><td>Never Married</td></tr><tr><th>3</th><td>4</td><td>0</td><td>7.0</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Separated</td><td>5553</td><td>51</td><td>Out of Labor</td><td>8284.0</td><td>WEST</td><td>Separated</td></tr><tr><th>4</th><td>5</td><td>12</td><td>70.0</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>42884</td><td>51</td><td>Unemployed</td><td>45088.0</td><td>WEST</td><td>Separated</td></tr></tbody></table></div>
+
+
+
+<h3 id="随堂练习-2"><a href="#随堂练习-2" class="headerlink" title="随堂练习 2"></a>随堂练习 2</h3><p>查看母亲数据集中是否含有缺失值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_data_v2.isnull().any()</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>PID                             False
+HIGHEST GRADE COMPLETED         False
+TOTAL IQ SCORE                   True
+SAMPLE IDENTIFICATION CODE      False
+RACIAL                          False
+EMPLOYMENT STATUS 1979          False
+REGION 1979                     False
+MARITAL STATUS 1979             False
+TOTAL NET FAMILY INCOME 1979    False
+AFQT                            False
+EMPLOYMENT STATUS 2014          False
+TOTAL NET FAMILY INCOME 2014     True
+REGION 2014                     False
+MARITAL STATUS 2014             False
+dtype: bool
+</code></pre><h3 id="随堂练习-3"><a href="#随堂练习-3" class="headerlink" title="随堂练习 3"></a>随堂练习 3</h3><p>显示母亲数据集中，含有缺失值的行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_data_v2[mom_data_v2.isnull().values==<span class="literal">True</span>]</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>71</th><td>76</td><td>17</td><td>70.0</td><td>6</td><td>White</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>49349</td><td>36</td><td>Unemployed</td><td>NaN</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>72</th><td>77</td><td>6</td><td>57.0</td><td>6</td><td>HISPANIC</td><td>Unemployed</td><td>NORTHEAST</td><td>Divorced</td><td>33492</td><td>36</td><td>Unemployed</td><td>NaN</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>73</th><td>78</td><td>9</td><td>92.0</td><td>5</td><td>HISPANIC</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>35070</td><td>60</td><td>Employed</td><td>NaN</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>74</th><td>79</td><td>15</td><td>92.0</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>51399</td><td>60</td><td>Employed</td><td>NaN</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>75</th><td>80</td><td>10</td><td>86.0</td><td>6</td><td>White</td><td>In Active Forces</td><td>NORTHEAST</td><td>Widowed</td><td>50960</td><td>72</td><td>Out of Labor</td><td>NaN</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>76</th><td>81</td><td>19</td><td>143.0</td><td>6</td><td>White</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>47326</td><td>72</td><td>Employed</td><td>NaN</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>77</th><td>82</td><td>19</td><td>145.0</td><td>6</td><td>White</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>75517</td><td>72</td><td>In Active Forces</td><td>NaN</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>79</th><td>83</td><td>6</td><td>84.0</td><td>5</td><td>Black</td><td>Unemployed</td><td>NORTHEAST</td><td>Divorced</td><td>25148</td><td>63</td><td>Out of Labor</td><td>NaN</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>80</th><td>84</td><td>19</td><td>122.0</td><td>5</td><td>HISPANIC</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>62388</td><td>63</td><td>Employed</td><td>NaN</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>81</th><td>85</td><td>5</td><td>84.0</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>34044</td><td>35</td><td>Unemployed</td><td>NaN</td><td>NORTHEAST</td><td>Widowed</td></tr><tr><th>82</th><td>86</td><td>11</td><td>116.0</td><td>5</td><td>HISPANIC</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>38855</td><td>35</td><td>Unemployed</td><td>NaN</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>83</th><td>87</td><td>0</td><td>56.0</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Separated</td><td>15545</td><td>35</td><td>Employed</td><td>NaN</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>84</th><td>88</td><td>18</td><td>103.0</td><td>5</td><td>White</td><td>Employed</td><td>NORTHEAST</td><td>Divorced</td><td>61553</td><td>40</td><td>Employed</td><td>NaN</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>85</th><td>89</td><td>19</td><td>132.0</td><td>5</td><td>White</td><td>In Active Forces</td><td>NORTHEAST</td><td>Married</td><td>71256</td><td>33</td><td>Employed</td><td>NaN</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>86</th><td>90</td><td>18</td><td>112.0</td><td>5</td><td>HISPANIC</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>60738</td><td>33</td><td>In Active Forces</td><td>NaN</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>87</th><td>91</td><td>4</td><td>43.0</td><td>5</td><td>HISPANIC</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>14710</td><td>33</td><td>In Active Forces</td><td>NaN</td><td>NORTHEAST</td><td>Never Married</td></tr><tr><th>88</th><td>93</td><td>18</td><td>113.0</td><td>5</td><td>HISPANIC</td><td>In Active Forces</td><td>NORTH CENTRAL</td><td>Married</td><td>53170</td><td>28</td><td>In Active Forces</td><td>NaN</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>89</th><td>94</td><td>12</td><td>63.0</td><td>5</td><td>HISPANIC</td><td>Out of Labor</td><td>NORTHEAST</td><td>Never Married</td><td>31649</td><td>31</td><td>Unemployed</td><td>NaN</td><td>WEST</td><td>Separated</td></tr><tr><th>96</th><td>100</td><td>13</td><td>NaN</td><td>5</td><td>Black</td><td>Employed</td><td>NORTHEAST</td><td>Never Married</td><td>43488</td><td>89</td><td>In Active Forces</td><td>49307.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>97</th><td>101</td><td>1</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Never Married</td><td>20099</td><td>49</td><td>Out of Labor</td><td>2170.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>98</th><td>102</td><td>12</td><td>NaN</td><td>5</td><td>Black</td><td>Employed</td><td>NORTHEAST</td><td>Divorced</td><td>52652</td><td>89</td><td>In Active Forces</td><td>62060.0</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>100</th><td>103</td><td>17</td><td>NaN</td><td>5</td><td>Black</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>65930</td><td>89</td><td>In Active Forces</td><td>64084.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>209</th><td>218</td><td>13</td><td>NaN</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Divorced</td><td>47056</td><td>98</td><td>In Active Forces</td><td>56407.0</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>210</th><td>219</td><td>15</td><td>NaN</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Divorced</td><td>63569</td><td>98</td><td>Employed</td><td>77272.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>251</th><td>257</td><td>6</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Separated</td><td>28802</td><td>19</td><td>Unemployed</td><td>41629.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>252</th><td>258</td><td>2</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Divorced</td><td>2906</td><td>19</td><td>Out of Labor</td><td>24760.0</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>253</th><td>259</td><td>0</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Separated</td><td>4372</td><td>19</td><td>Out of Labor</td><td>17699.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>272</th><td>279</td><td>4</td><td>NaN</td><td>5</td><td>Black</td><td>Unemployed</td><td>NORTHEAST</td><td>Separated</td><td>29337</td><td>42</td><td>Unemployed</td><td>35401.0</td><td>NORTHEAST</td><td>Widowed</td></tr><tr><th>309</th><td>313</td><td>9</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Divorced</td><td>40427</td><td>59</td><td>Employed</td><td>33049.0</td><td>SOUTH</td><td>Widowed</td></tr></tbody></table></div>
+
+
+
+<p>通过随堂练习3，我们可以发现母亲数据集中含有比较多的缺失值，集中在TOTAL IQ SCORE和TOTAL NET FAMILY INCOME 2014两列中，因此直接删除整行并不合适，因此我们需要填充这些缺失值。这里我们选择用整列的平均数来填充这些缺失值。<br><br>首先，我们先提取TOTAL NET FAMILY INCOME 2014列的数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">income_2014 = mom_data_v2[ <span class="string">'TOTAL NET FAMILY INCOME 2014'</span> ]</span><br><span class="line">income_2014[<span class="number">0</span>:<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<pre><code>0    56329.0
+1    51346.0
+2    45465.0
+Name: TOTAL NET FAMILY INCOME 2014, dtype: float64
+</code></pre><p>计算income_2014的平均数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">income_2014_mean = np.mean(income_2014)</span><br><span class="line">print(income_2014_mean)</span><br></pre></td></tr></table></figure>
+<pre><code>45113.1124246035
+</code></pre><p>用平均数来填充2014年收入列的缺失值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mom_data_v2[ <span class="string">'TOTAL NET FAMILY INCOME 2014'</span> ] = \</span><br><span class="line">mom_data_v2[ <span class="string">'TOTAL NET FAMILY INCOME 2014'</span> ].fillna(income_2014_mean)</span><br></pre></td></tr></table></figure>
+<p>再次查看表格中的缺失值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mom_data_v2[mom_data_v2.isnull().values==<span class="literal">True</span>]</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>96</th><td>100</td><td>13</td><td>NaN</td><td>5</td><td>Black</td><td>Employed</td><td>NORTHEAST</td><td>Never Married</td><td>43488</td><td>89</td><td>In Active Forces</td><td>49307.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>97</th><td>101</td><td>1</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Never Married</td><td>20099</td><td>49</td><td>Out of Labor</td><td>2170.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>98</th><td>102</td><td>12</td><td>NaN</td><td>5</td><td>Black</td><td>Employed</td><td>NORTHEAST</td><td>Divorced</td><td>52652</td><td>89</td><td>In Active Forces</td><td>62060.0</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>100</th><td>103</td><td>17</td><td>NaN</td><td>5</td><td>Black</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>65930</td><td>89</td><td>In Active Forces</td><td>64084.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>209</th><td>218</td><td>13</td><td>NaN</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Divorced</td><td>47056</td><td>98</td><td>In Active Forces</td><td>56407.0</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>210</th><td>219</td><td>15</td><td>NaN</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Divorced</td><td>63569</td><td>98</td><td>Employed</td><td>77272.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>251</th><td>257</td><td>6</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Separated</td><td>28802</td><td>19</td><td>Unemployed</td><td>41629.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>252</th><td>258</td><td>2</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Divorced</td><td>2906</td><td>19</td><td>Out of Labor</td><td>24760.0</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>253</th><td>259</td><td>0</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Separated</td><td>4372</td><td>19</td><td>Out of Labor</td><td>17699.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>272</th><td>279</td><td>4</td><td>NaN</td><td>5</td><td>Black</td><td>Unemployed</td><td>NORTHEAST</td><td>Separated</td><td>29337</td><td>42</td><td>Unemployed</td><td>35401.0</td><td>NORTHEAST</td><td>Widowed</td></tr><tr><th>309</th><td>313</td><td>9</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Divorced</td><td>40427</td><td>59</td><td>Employed</td><td>33049.0</td><td>SOUTH</td><td>Widowed</td></tr></tbody></table></div>
+
+
+
+<p>保存修改后的数据集，命名为mom_data_wNaN.csv</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mom_data_v2.to_csv(<span class="string">'mom_data_wNaN.csv'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-4"><a href="#随堂练习-4" class="headerlink" title="随堂练习 4"></a>随堂练习 4</h3><p>提取mom_data_v2中的Total IQ SCORE列的数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">iq = mom_data_v2[ <span class="string">'TOTAL IQ SCORE'</span> ]</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-5"><a href="#随堂练习-5" class="headerlink" title="随堂练习 5"></a>随堂练习 5</h3><p>计算Total IQ SCORE列的平均数,并打印出平均数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">iq_mean = np.mean(iq)</span><br><span class="line">print(iq_mean)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>85.31447587674062
+</code></pre><h3 id="随堂练习-6"><a href="#随堂练习-6" class="headerlink" title="随堂练习 6"></a>随堂练习 6</h3><p>以IQ的平均数来替换mom_data_v2的Total IQ SCORE列的缺失值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_data_v2[ <span class="string">'TOTAL IQ SCORE'</span>] = mom_data_v2[ <span class="string">'TOTAL IQ SCORE'</span>].fillna(iq_mean)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="数据集合并"><a href="#数据集合并" class="headerlink" title="数据集合并"></a>数据集合并</h3><p>学生数据集和母亲数据集并不是每行一一对应的，而是通过PID连接在一起的，因此我们需要通过PID来合并两个数据集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df1=pd.DataFrame(&#123;<span class="string">'key'</span>:[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>],<span class="string">'data1'</span>:range(<span class="number">3</span>)&#125;)</span><br><span class="line">print(df1)</span><br></pre></td></tr></table></figure>
+<pre><code>  key  data1
+0   a      0
+1   b      1
+2   c      2
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df2=pd.DataFrame(&#123;<span class="string">'key'</span>:[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>],<span class="string">'data2'</span>:range(<span class="number">10</span>,<span class="number">13</span>)&#125;)</span><br><span class="line">print(df2)</span><br></pre></td></tr></table></figure>
+<pre><code>  key  data2
+0   a     10
+1   b     11
+2   c     12
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df_1_2 = pd.merge(df1,df2,on=<span class="string">'key'</span>)</span><br><span class="line">print(df_1_2)</span><br></pre></td></tr></table></figure>
+<pre><code>  key  data1  data2
+0   a      0     10
+1   b      1     11
+2   c      2     12
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df3=pd.DataFrame(&#123;<span class="string">'key'</span>:[<span class="string">'a'</span>,<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'c'</span>],<span class="string">'data1'</span>:range(<span class="number">6</span>)&#125;)</span><br><span class="line">print(df3)</span><br></pre></td></tr></table></figure>
+<pre><code>  key  data1
+0   a      0
+1   a      1
+2   b      2
+3   b      3
+4   c      4
+5   c      5
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df4=pd.DataFrame(&#123;<span class="string">'key'</span>:[<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'d'</span>],<span class="string">'data2'</span>:range(<span class="number">3</span>)&#125;)</span><br><span class="line">print(df4)</span><br></pre></td></tr></table></figure>
+<pre><code>  key  data2
+0   a      0
+1   b      1
+2   d      2
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df_3_4 = pd.merge(df3,df4,on=<span class="string">'key'</span>)</span><br><span class="line">print(df_3_4)</span><br></pre></td></tr></table></figure>
+<pre><code>  key  data1  data2
+0   a      0      0
+1   a      1      0
+2   b      2      1
+3   b      3      1
+</code></pre><h3 id="随堂练习-7"><a href="#随堂练习-7" class="headerlink" title="随堂练习 7"></a>随堂练习 7</h3><p>通过PID合并学生数据集(student_data_origin)以及母亲数据集(mom_data)，将合并后的数据集命名为student_mom_data</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">student_mom_data = pd.merge(student_data_origin,mom_data_v2,on=<span class="string">'PID'</span>)</span><br><span class="line">student_mom_data.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>0</th><td>9</td><td>White</td><td>MALE</td><td>1979</td><td>46</td><td>9</td><td>89.0</td><td>6</td><td>White</td><td>Employed</td><td>NORTHEAST</td><td>Divorced</td><td>45567</td><td>43</td><td>Unemployed</td><td>41220.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>1</th><td>7043</td><td>Black</td><td>MALE</td><td>1981</td><td>47</td><td>4</td><td>75.0</td><td>13</td><td>White</td><td>Unemployed</td><td>NORTH CENTRAL</td><td>Never Married</td><td>20959</td><td>78</td><td>Unemployed</td><td>40202.0</td><td>NORTH CENTRAL</td><td>Never Married</td></tr><tr><th>2</th><td>8797</td><td>HISPANIC</td><td>FEMALE</td><td>1990</td><td>25</td><td>3</td><td>28.0</td><td>14</td><td>Black</td><td>Unemployed</td><td>WEST</td><td>Never Married</td><td>5098</td><td>29</td><td>Unemployed</td><td>21774.0</td><td>WEST</td><td>Widowed</td></tr><tr><th>3</th><td>3040</td><td>Black</td><td>MALE</td><td>1982</td><td>28</td><td>13</td><td>113.0</td><td>7</td><td>White</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>57812</td><td>14</td><td>Out of Labor</td><td>60610.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>4</th><td>1137</td><td>White</td><td>MALE</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>5</td><td>White</td><td>Employed</td><td>SOUTH</td><td>Separated</td><td>64082</td><td>27</td><td>In Active Forces</td><td>47115.0</td><td>SOUTH</td><td>Married</td></tr></tbody></table></div>
+
+
+
+<h3 id="从数据集中提取对应行或者列"><a href="#从数据集中提取对应行或者列" class="headerlink" title="从数据集中提取对应行或者列"></a>从数据集中提取对应行或者列</h3><p>提取对应列比如’Score’以及’TOTAL IQ SCORE’</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">student_mom_data[[<span class="string">'Score'</span>, <span class="string">'TOTAL IQ SCORE'</span>]]</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>Score</th><th>TOTAL IQ SCORE</th></tr></thead><tbody><tr><th>0</th><td>46</td><td>89.0</td></tr><tr><th>1</th><td>47</td><td>75.0</td></tr><tr><th>2</th><td>25</td><td>28.0</td></tr><tr><th>3</th><td>28</td><td>113.0</td></tr><tr><th>4</th><td>78</td><td>80.0</td></tr><tr><th>5</th><td>39</td><td>63.0</td></tr><tr><th>6</th><td>90</td><td>140.0</td></tr><tr><th>7</th><td>47</td><td>97.0</td></tr><tr><th>8</th><td>83</td><td>101.0</td></tr><tr><th>9</th><td>70</td><td>115.0</td></tr><tr><th>10</th><td>52</td><td>104.0</td></tr><tr><th>11</th><td>6</td><td>41.0</td></tr><tr><th>12</th><td>57</td><td>75.0</td></tr><tr><th>13</th><td>91</td><td>129.0</td></tr><tr><th>14</th><td>34</td><td>17.0</td></tr><tr><th>15</th><td>58</td><td>104.0</td></tr><tr><th>16</th><td>58</td><td>108.0</td></tr><tr><th>17</th><td>50</td><td>109.0</td></tr><tr><th>18</th><td>43</td><td>41.0</td></tr><tr><th>19</th><td>6</td><td>84.0</td></tr><tr><th>20</th><td>74</td><td>95.0</td></tr><tr><th>21</th><td>71</td><td>123.0</td></tr><tr><th>22</th><td>51</td><td>120.0</td></tr><tr><th>23</th><td>60</td><td>87.0</td></tr><tr><th>24</th><td>85</td><td>114.0</td></tr><tr><th>25</th><td>98</td><td>114.0</td></tr><tr><th>26</th><td>54</td><td>82.0</td></tr><tr><th>27</th><td>54</td><td>104.0</td></tr><tr><th>28</th><td>64</td><td>102.0</td></tr><tr><th>29</th><td>29</td><td>72.0</td></tr><tr><th>…</th><td>…</td><td>…</td></tr><tr><th>10844</th><td>48</td><td>79.0</td></tr><tr><th>10845</th><td>28</td><td>89.0</td></tr><tr><th>10846</th><td>3</td><td>6.0</td></tr><tr><th>10847</th><td>50</td><td>69.0</td></tr><tr><th>10848</th><td>60</td><td>101.0</td></tr><tr><th>10849</th><td>73</td><td>110.0</td></tr><tr><th>10850</th><td>88</td><td>147.0</td></tr><tr><th>10851</th><td>18</td><td>27.0</td></tr><tr><th>10852</th><td>57</td><td>115.0</td></tr><tr><th>10853</th><td>42</td><td>93.0</td></tr><tr><th>10854</th><td>21</td><td>89.0</td></tr><tr><th>10855</th><td>18</td><td>47.0</td></tr><tr><th>10856</th><td>75</td><td>104.0</td></tr><tr><th>10857</th><td>33</td><td>8.0</td></tr><tr><th>10858</th><td>36</td><td>43.0</td></tr><tr><th>10859</th><td>92</td><td>128.0</td></tr><tr><th>10860</th><td>86</td><td>125.0</td></tr><tr><th>10861</th><td>80</td><td>103.0</td></tr><tr><th>10862</th><td>11</td><td>11.0</td></tr><tr><th>10863</th><td>96</td><td>114.0</td></tr><tr><th>10864</th><td>77</td><td>91.0</td></tr><tr><th>10865</th><td>83</td><td>115.0</td></tr><tr><th>10866</th><td>43</td><td>94.0</td></tr><tr><th>10867</th><td>56</td><td>92.0</td></tr><tr><th>10868</th><td>72</td><td>98.0</td></tr><tr><th>10869</th><td>12</td><td>19.0</td></tr><tr><th>10870</th><td>3</td><td>8.0</td></tr><tr><th>10871</th><td>42</td><td>34.0</td></tr><tr><th>10872</th><td>24</td><td>89.0</td></tr><tr><th>10873</th><td>78</td><td>113.0</td></tr></tbody></table><p>10874 rows × 2 columns</p></div>
+
+
+
+<p>提取对应行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">student_mom_data.loc[<span class="number">0</span>:<span class="number">5</span>,:]</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>0</th><td>9</td><td>White</td><td>MALE</td><td>1979</td><td>46</td><td>9</td><td>89.0</td><td>6</td><td>White</td><td>Employed</td><td>NORTHEAST</td><td>Divorced</td><td>45567</td><td>43</td><td>Unemployed</td><td>41220.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>1</th><td>7043</td><td>Black</td><td>MALE</td><td>1981</td><td>47</td><td>4</td><td>75.0</td><td>13</td><td>White</td><td>Unemployed</td><td>NORTH CENTRAL</td><td>Never Married</td><td>20959</td><td>78</td><td>Unemployed</td><td>40202.0</td><td>NORTH CENTRAL</td><td>Never Married</td></tr><tr><th>2</th><td>8797</td><td>HISPANIC</td><td>FEMALE</td><td>1990</td><td>25</td><td>3</td><td>28.0</td><td>14</td><td>Black</td><td>Unemployed</td><td>WEST</td><td>Never Married</td><td>5098</td><td>29</td><td>Unemployed</td><td>21774.0</td><td>WEST</td><td>Widowed</td></tr><tr><th>3</th><td>3040</td><td>Black</td><td>MALE</td><td>1982</td><td>28</td><td>13</td><td>113.0</td><td>7</td><td>White</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>57812</td><td>14</td><td>Out of Labor</td><td>60610.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>4</th><td>1137</td><td>White</td><td>MALE</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>5</td><td>White</td><td>Employed</td><td>SOUTH</td><td>Separated</td><td>64082</td><td>27</td><td>In Active Forces</td><td>47115.0</td><td>SOUTH</td><td>Married</td></tr><tr><th>5</th><td>8798</td><td>HISPANIC</td><td>MALE</td><td>1991</td><td>39</td><td>4</td><td>63.0</td><td>14</td><td>HISPANIC</td><td>Unemployed</td><td>WEST</td><td>Divorced</td><td>34597</td><td>29</td><td>Unemployed</td><td>35566.0</td><td>WEST</td><td>Divorced</td></tr></tbody></table></div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">student_mom_data.loc[<span class="number">0</span>:<span class="number">5</span>,[<span class="string">'childrace'</span>,<span class="string">'TOTAL IQ SCORE'</span>]]</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>childrace</th><th>TOTAL IQ SCORE</th></tr></thead><tbody><tr><th>0</th><td>White</td><td>89.0</td></tr><tr><th>1</th><td>Black</td><td>75.0</td></tr><tr><th>2</th><td>HISPANIC</td><td>28.0</td></tr><tr><th>3</th><td>Black</td><td>113.0</td></tr><tr><th>4</th><td>White</td><td>80.0</td></tr><tr><th>5</th><td>HISPANIC</td><td>63.0</td></tr></tbody></table></div>
+
+
+
+<p>逻辑提取<br><br>从学生数据集中提取提取childrace是white的数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">white_data = student_data_origin[student_data_origin[<span class="string">'childrace'</span>] == <span class="string">'White'</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">white_data.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th></tr></thead><tbody><tr><th>0</th><td>9</td><td>White</td><td>MALE</td><td>1979</td><td>46</td></tr><tr><th>4</th><td>1137</td><td>White</td><td>MALE</td><td>2001</td><td>78</td></tr><tr><th>6</th><td>3683</td><td>White</td><td>FEMALE</td><td>1990</td><td>90</td></tr><tr><th>8</th><td>6388</td><td>White</td><td>MALE</td><td>1982</td><td>83</td></tr><tr><th>11</th><td>4026</td><td>White</td><td>FEMALE</td><td>1991</td><td>6</td></tr></tbody></table></div>
+
+
+
+<p>计算white_data数据集中’Score’的平均数，极大值和极小值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.mean(white_data[<span class="string">'Score'</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>59.207518022657055
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.max(white_data[<span class="string">'Score'</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>100
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.min(white_data[<span class="string">'Score'</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>0
+</code></pre><p>显示在白人孩子(white_data.csv)中Score达到98分的学生情况</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">white_data[white_data[<span class="string">'Score'</span>]==<span class="number">98</span>]</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th></tr></thead><tbody><tr><th>25</th><td>3614</td><td>White</td><td>FEMALE</td><td>1990</td><td>98</td></tr><tr><th>371</th><td>11329</td><td>White</td><td>MALE</td><td>1988</td><td>98</td></tr><tr><th>393</th><td>8963</td><td>White</td><td>MALE</td><td>1981</td><td>98</td></tr><tr><th>1023</th><td>3163</td><td>White</td><td>FEMALE</td><td>1985</td><td>98</td></tr><tr><th>1119</th><td>4147</td><td>White</td><td>MALE</td><td>1980</td><td>98</td></tr><tr><th>1124</th><td>1065</td><td>White</td><td>MALE</td><td>1999</td><td>98</td></tr><tr><th>1299</th><td>7192</td><td>White</td><td>FEMALE</td><td>1981</td><td>98</td></tr><tr><th>2042</th><td>2737</td><td>White</td><td>MALE</td><td>1997</td><td>98</td></tr><tr><th>2486</th><td>10076</td><td>White</td><td>MALE</td><td>1990</td><td>98</td></tr><tr><th>2860</th><td>3678</td><td>White</td><td>FEMALE</td><td>1994</td><td>98</td></tr><tr><th>2978</th><td>3622</td><td>White</td><td>FEMALE</td><td>1986</td><td>98</td></tr><tr><th>3139</th><td>598</td><td>White</td><td>MALE</td><td>1985</td><td>98</td></tr><tr><th>3206</th><td>5066</td><td>White</td><td>FEMALE</td><td>1984</td><td>98</td></tr><tr><th>3257</th><td>8574</td><td>White</td><td>MALE</td><td>1985</td><td>98</td></tr><tr><th>3385</th><td>235</td><td>White</td><td>FEMALE</td><td>1990</td><td>98</td></tr><tr><th>3915</th><td>4421</td><td>White</td><td>MALE</td><td>2000</td><td>98</td></tr><tr><th>4096</th><td>1760</td><td>White</td><td>FEMALE</td><td>1987</td><td>98</td></tr><tr><th>4159</th><td>8307</td><td>White</td><td>FEMALE</td><td>1985</td><td>98</td></tr><tr><th>5412</th><td>10821</td><td>White</td><td>MALE</td><td>1983</td><td>98</td></tr><tr><th>6244</th><td>10079</td><td>White</td><td>FEMALE</td><td>1985</td><td>98</td></tr><tr><th>6393</th><td>7982</td><td>White</td><td>FEMALE</td><td>1977</td><td>98</td></tr><tr><th>6451</th><td>3696</td><td>White</td><td>FEMALE</td><td>1991</td><td>98</td></tr><tr><th>6591</th><td>387</td><td>White</td><td>MALE</td><td>1996</td><td>98</td></tr><tr><th>6730</th><td>11137</td><td>White</td><td>FEMALE</td><td>1979</td><td>98</td></tr><tr><th>7009</th><td>557</td><td>White</td><td>MALE</td><td>1987</td><td>98</td></tr><tr><th>7084</th><td>9332</td><td>White</td><td>FEMALE</td><td>1988</td><td>98</td></tr><tr><th>7483</th><td>5156</td><td>White</td><td>MALE</td><td>1999</td><td>98</td></tr><tr><th>7826</th><td>10643</td><td>White</td><td>FEMALE</td><td>1981</td><td>98</td></tr><tr><th>8004</th><td>11380</td><td>White</td><td>FEMALE</td><td>1987</td><td>98</td></tr><tr><th>8619</th><td>11337</td><td>White</td><td>MALE</td><td>1979</td><td>98</td></tr><tr><th>8702</th><td>10214</td><td>White</td><td>FEMALE</td><td>1982</td><td>98</td></tr><tr><th>9142</th><td>10907</td><td>White</td><td>FEMALE</td><td>1995</td><td>98</td></tr><tr><th>9460</th><td>4008</td><td>White</td><td>FEMALE</td><td>1984</td><td>98</td></tr><tr><th>9674</th><td>11145</td><td>White</td><td>FEMALE</td><td>1985</td><td>98</td></tr><tr><th>10181</th><td>4051</td><td>White</td><td>MALE</td><td>1978</td><td>98</td></tr><tr><th>10211</th><td>1877</td><td>White</td><td>MALE</td><td>1983</td><td>98</td></tr><tr><th>10274</th><td>922</td><td>White</td><td>MALE</td><td>2002</td><td>98</td></tr><tr><th>10375</th><td>11255</td><td>White</td><td>FEMALE</td><td>1985</td><td>98</td></tr><tr><th>10414</th><td>1428</td><td>White</td><td>MALE</td><td>1982</td><td>98</td></tr><tr><th>10469</th><td>9249</td><td>White</td><td>FEMALE</td><td>1983</td><td>98</td></tr><tr><th>10558</th><td>6384</td><td>White</td><td>MALE</td><td>1981</td><td>98</td></tr></tbody></table></div>
+
+
+
+<p>获得白人小孩分数在98分同时是95年后出生的数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">white_data[(white_data[<span class="string">'Score'</span>]==<span class="number">98</span>) &amp; (white_data[<span class="string">'birthyear'</span>] &gt; <span class="number">1995</span>)]</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th></tr></thead><tbody><tr><th>1124</th><td>1065</td><td>White</td><td>MALE</td><td>1999</td><td>98</td></tr><tr><th>2042</th><td>2737</td><td>White</td><td>MALE</td><td>1997</td><td>98</td></tr><tr><th>3915</th><td>4421</td><td>White</td><td>MALE</td><td>2000</td><td>98</td></tr><tr><th>6591</th><td>387</td><td>White</td><td>MALE</td><td>1996</td><td>98</td></tr><tr><th>7483</th><td>5156</td><td>White</td><td>MALE</td><td>1999</td><td>98</td></tr><tr><th>10274</th><td>922</td><td>White</td><td>MALE</td><td>2002</td><td>98</td></tr></tbody></table></div>
+
+
+
+<h3 id="随堂练习-8"><a href="#随堂练习-8" class="headerlink" title="随堂练习 8"></a>随堂练习 8</h3><p>从学生数据集(student_data_origin)中提取种族为西班牙裔(‘HISPANIC’)的学生，并展示前5行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">hispanic_data = student_data_origin[student_data_origin[<span class="string">'childrace'</span>] == <span class="string">'HISPANIC'</span>]</span><br><span class="line">hispanic_data.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th></tr></thead><tbody><tr><th>2</th><td>8797</td><td>HISPANIC</td><td>FEMALE</td><td>1990</td><td>25</td></tr><tr><th>5</th><td>8798</td><td>HISPANIC</td><td>MALE</td><td>1991</td><td>39</td></tr><tr><th>15</th><td>8581</td><td>HISPANIC</td><td>MALE</td><td>1989</td><td>58</td></tr><tr><th>29</th><td>8136</td><td>HISPANIC</td><td>MALE</td><td>1990</td><td>29</td></tr><tr><th>35</th><td>5478</td><td>HISPANIC</td><td>MALE</td><td>1982</td><td>64</td></tr></tbody></table></div>
+
+
+
+<h3 id="随堂练习-9"><a href="#随堂练习-9" class="headerlink" title="随堂练习 9"></a>随堂练习 9</h3><p>西班牙裔学生中，最年轻的学生是哪一年出生的并打印该年份</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">year = np.max(hispanic_data[<span class="string">'birthyear'</span>])</span><br><span class="line">print(year)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>2009
+</code></pre><h3 id="随堂练习-10"><a href="#随堂练习-10" class="headerlink" title="随堂练习 10"></a>随堂练习 10</h3><p>在hispanic_data数据集中提取在上题中年份出生的西班牙裔学生数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">print(hispanic_data[hispanic_data[<span class="string">'birthyear'</span>]==<span class="number">2009</span>])</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>       PID childrace childsex  birthyear  Score
+268   8761  HISPANIC     MALE       2009     77
+3714  8762  HISPANIC   FEMALE       2009     40
+</code></pre><h3 id="课后练习-1"><a href="#课后练习-1" class="headerlink" title="课后练习 1"></a>课后练习 1</h3><p>导入之前保存的mom_data_wNaN.csv数据集并显示前5行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_data_wNaN=pd.read_csv(<span class="string">'mom_data_wNaN.csv'</span>, index_col=<span class="number">0</span>)</span><br><span class="line">mom_data_wNaN.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>0</th><td>1</td><td>15</td><td>106.0</td><td>5</td><td>HISPANIC</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>71920</td><td>12</td><td>Employed</td><td>56329.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>1</th><td>2</td><td>15</td><td>105.0</td><td>5</td><td>HISPANIC</td><td>Unemployed</td><td>NORTHEAST</td><td>Separated</td><td>67265</td><td>12</td><td>Employed</td><td>51346.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>2</th><td>3</td><td>6</td><td>69.0</td><td>5</td><td>HISPANIC</td><td>Out of Labor</td><td>NORTHEAST</td><td>Never Married</td><td>26234</td><td>51</td><td>Unemployed</td><td>45465.0</td><td>WEST</td><td>Never Married</td></tr><tr><th>3</th><td>4</td><td>0</td><td>7.0</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Separated</td><td>5553</td><td>51</td><td>Out of Labor</td><td>8284.0</td><td>WEST</td><td>Separated</td></tr><tr><th>4</th><td>5</td><td>12</td><td>70.0</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Separated</td><td>42884</td><td>51</td><td>Unemployed</td><td>45088.0</td><td>WEST</td><td>Separated</td></tr></tbody></table></div>
+
+
+
+<h3 id="课后练习-2"><a href="#课后练习-2" class="headerlink" title="课后练习 2"></a>课后练习 2</h3><p>显示mom_data_wNaN中含有缺失值的行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_data_wNaN[mom_data_wNaN.isnull().values==<span class="literal">True</span>]</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>96</th><td>100</td><td>13</td><td>NaN</td><td>5</td><td>Black</td><td>Employed</td><td>NORTHEAST</td><td>Never Married</td><td>43488</td><td>89</td><td>In Active Forces</td><td>49307.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>97</th><td>101</td><td>1</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Never Married</td><td>20099</td><td>49</td><td>Out of Labor</td><td>2170.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>98</th><td>102</td><td>12</td><td>NaN</td><td>5</td><td>Black</td><td>Employed</td><td>NORTHEAST</td><td>Divorced</td><td>52652</td><td>89</td><td>In Active Forces</td><td>62060.0</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>100</th><td>103</td><td>17</td><td>NaN</td><td>5</td><td>Black</td><td>Employed</td><td>NORTHEAST</td><td>Married</td><td>65930</td><td>89</td><td>In Active Forces</td><td>64084.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>209</th><td>218</td><td>13</td><td>NaN</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Divorced</td><td>47056</td><td>98</td><td>In Active Forces</td><td>56407.0</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>210</th><td>219</td><td>15</td><td>NaN</td><td>5</td><td>Black</td><td>In Active Forces</td><td>NORTHEAST</td><td>Divorced</td><td>63569</td><td>98</td><td>Employed</td><td>77272.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>251</th><td>257</td><td>6</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Separated</td><td>28802</td><td>19</td><td>Unemployed</td><td>41629.0</td><td>NORTHEAST</td><td>Married</td></tr><tr><th>252</th><td>258</td><td>2</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Divorced</td><td>2906</td><td>19</td><td>Out of Labor</td><td>24760.0</td><td>NORTHEAST</td><td>Divorced</td></tr><tr><th>253</th><td>259</td><td>0</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Separated</td><td>4372</td><td>19</td><td>Out of Labor</td><td>17699.0</td><td>NORTHEAST</td><td>Separated</td></tr><tr><th>272</th><td>279</td><td>4</td><td>NaN</td><td>5</td><td>Black</td><td>Unemployed</td><td>NORTHEAST</td><td>Separated</td><td>29337</td><td>42</td><td>Unemployed</td><td>35401.0</td><td>NORTHEAST</td><td>Widowed</td></tr><tr><th>309</th><td>313</td><td>9</td><td>NaN</td><td>5</td><td>Black</td><td>Out of Labor</td><td>NORTHEAST</td><td>Divorced</td><td>40427</td><td>59</td><td>Employed</td><td>33049.0</td><td>SOUTH</td><td>Widowed</td></tr></tbody></table></div>
+
+
+
+<h3 id="课后练习-3"><a href="#课后练习-3" class="headerlink" title="课后练习 3"></a>课后练习 3</h3><p>打印数据集mom_data_wNaN中RACIAL为Black的平均智商分数(TOTAL IQ SCORE)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">black_avg_iq = np.mean(mom_data_wNaN[mom_data_wNaN[<span class="string">'RACIAL'</span>] == <span class="string">'Black'</span>][<span class="string">'TOTAL IQ SCORE'</span>])</span><br><span class="line">print(black_avg_iq)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>59.82520929476317
+</code></pre><h3 id="课后练习-4"><a href="#课后练习-4" class="headerlink" title="课后练习 4"></a>课后练习 4</h3><p>以black_avg_iq的值来填充mom_data_wNaN中的缺失值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_data_wNaN[ <span class="string">'TOTAL IQ SCORE'</span>] = mom_data_wNaN[ <span class="string">'TOTAL IQ SCORE'</span>].fillna(black_avg_iq)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="课后练习-5"><a href="#课后练习-5" class="headerlink" title="课后练习 5"></a>课后练习 5</h3><p>通过PID将mom_data_wNaN与student_data_origin合并，命名为student_mom_revised,并保存为student_mom_revised.csv</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">student_mom_revised = pd.merge(student_data_origin,mom_data_v2,on=<span class="string">'PID'</span>)</span><br><span class="line">student_mom_revised.to_csv(<span class="string">'student_mom_revised.csv'</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>Xdh
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/05/23/1-1-学业数据初探/" target="_blank" title="1.1-学业数据初探">http://yoursite.com/2019/05/23/1-1-学业数据初探/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+</div></div>
+      
+      
+      
+        
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/23/1-2-影响学业的变量分析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          1.2 影响学业的变量分析
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#学生数据集初探"><span class="nav-number">1.</span> <span class="nav-text">学生数据集初探</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-1"><span class="nav-number">2.</span> <span class="nav-text">随堂练习 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-2"><span class="nav-number">3.</span> <span class="nav-text">随堂练习 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-3"><span class="nav-number">4.</span> <span class="nav-text">随堂练习 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-4"><span class="nav-number">5.</span> <span class="nav-text">随堂练习 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-5"><span class="nav-number">6.</span> <span class="nav-text">随堂练习 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-6"><span class="nav-number">7.</span> <span class="nav-text">随堂练习 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据集合并"><span class="nav-number">8.</span> <span class="nav-text">数据集合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-7"><span class="nav-number">9.</span> <span class="nav-text">随堂练习 7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从数据集中提取对应行或者列"><span class="nav-number">10.</span> <span class="nav-text">从数据集中提取对应行或者列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-8"><span class="nav-number">11.</span> <span class="nav-text">随堂练习 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-9"><span class="nav-number">12.</span> <span class="nav-text">随堂练习 9</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-10"><span class="nav-number">13.</span> <span class="nav-text">随堂练习 10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-1"><span class="nav-number">14.</span> <span class="nav-text">课后练习 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-2"><span class="nav-number">15.</span> <span class="nav-text">课后练习 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-3"><span class="nav-number">16.</span> <span class="nav-text">课后练习 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-4"><span class="nav-number">17.</span> <span class="nav-text">课后练习 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-5"><span class="nav-number">18.</span> <span class="nav-text">课后练习 5</span></a></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2019 - 2019 Xdh All Rights Reserved.</p>
+	      
+	      
+  		   	<p id="copyRightCn">Xdh hold copyright</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Xdh
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 Xdh All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>

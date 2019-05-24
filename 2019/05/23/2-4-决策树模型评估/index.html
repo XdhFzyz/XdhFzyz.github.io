@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>2.4 决策树模型评估 | Xdh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="决策树模型评估$R^2$和均方根误差（score &amp;amp; RMSE）波士顿房价案例我们引入更多变量来对波士顿的房价进行预测。变量解释如下表所示：      变量 解释     CRIM 城镇人均犯罪率   ZN 住宅用地超过25000的比例   INDUS 城镇非零售商用土地的比例   CHAS 查理斯河变量   NOX 一氧化氮浓度   RM 住宅平均房间数   AGE 1940 年之前建成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.4 决策树模型评估">
+<meta property="og:url" content="http://yoursite.com/2019/05/23/2-4-决策树模型评估/index.html">
+<meta property="og:site_name" content="Xdh">
+<meta property="og:description" content="决策树模型评估$R^2$和均方根误差（score &amp;amp; RMSE）波士顿房价案例我们引入更多变量来对波士顿的房价进行预测。变量解释如下表所示：      变量 解释     CRIM 城镇人均犯罪率   ZN 住宅用地超过25000的比例   INDUS 城镇非零售商用土地的比例   CHAS 查理斯河变量   NOX 一氧化氮浓度   RM 住宅平均房间数   AGE 1940 年之前建成">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-4-决策树模型评估/output_18_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-4-决策树模型评估/output_26_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-4-决策树模型评估/output_36_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-4-决策树模型评估/output_42_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-4-决策树模型评估/output_46_0.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/23/2-4-决策树模型评估/output_52_0.png">
+<meta property="og:updated_time" content="2019-05-24T08:44:20.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2.4 决策树模型评估">
+<meta name="twitter:description" content="决策树模型评估$R^2$和均方根误差（score &amp;amp; RMSE）波士顿房价案例我们引入更多变量来对波士顿的房价进行预测。变量解释如下表所示：      变量 解释     CRIM 城镇人均犯罪率   ZN 住宅用地超过25000的比例   INDUS 城镇非零售商用土地的比例   CHAS 查理斯河变量   NOX 一氧化氮浓度   RM 住宅平均房间数   AGE 1940 年之前建成">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/23/2-4-决策树模型评估/output_18_0.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Xdh" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css">
+  
+
+  
+  
+  
+
+</head>
+</html>
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;" href="#" data-toggle="modal" data-target="#myModal">
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">Home</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">Archives</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">About</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="index.search"><button type="submit" class="search-form-submit"> </button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+
+</div></li>
+            </ul></div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-2-4-决策树模型评估" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost">
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      2.4 决策树模型评估
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/05/23/2-4-决策树模型评估/" class="article-date">
+	  <time datetime="2019-05-23T07:50:42.000Z" itemprop="datePublished">2019-05-23</time>
+	</a>
+
+      
+      
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="决策树模型评估"><a href="#决策树模型评估" class="headerlink" title="决策树模型评估"></a>决策树模型评估</h2><h3 id="R-2-和均方根误差（score-amp-RMSE）"><a href="#R-2-和均方根误差（score-amp-RMSE）" class="headerlink" title="$R^2$和均方根误差（score &amp; RMSE）"></a>$R^2$和均方根误差（score &amp; RMSE）</h3><h4 id="波士顿房价案例"><a href="#波士顿房价案例" class="headerlink" title="波士顿房价案例"></a>波士顿房价案例</h4><p>我们引入更多变量来对波士顿的房价进行预测。变量解释如下表所示：  </p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CRIM</td>
+<td>城镇人均犯罪率</td>
+</tr>
+<tr>
+<td>ZN</td>
+<td>住宅用地超过25000的比例</td>
+</tr>
+<tr>
+<td>INDUS</td>
+<td>城镇非零售商用土地的比例</td>
+</tr>
+<tr>
+<td>CHAS</td>
+<td>查理斯河变量</td>
+</tr>
+<tr>
+<td>NOX</td>
+<td>一氧化氮浓度</td>
+</tr>
+<tr>
+<td>RM</td>
+<td>住宅平均房间数</td>
+</tr>
+<tr>
+<td>AGE</td>
+<td>1940 年之前建成的自用房屋比例</td>
+</tr>
+<tr>
+<td>DIS</td>
+<td>到波士顿五个中心区域的加权距离</td>
+</tr>
+<tr>
+<td>RAD</td>
+<td>辐射性公路的接近指数</td>
+</tr>
+<tr>
+<td>TAX</td>
+<td>每10000美元的全值财产税率</td>
+</tr>
+<tr>
+<td>PTRATIO</td>
+<td>城镇师生比例</td>
+</tr>
+<tr>
+<td>B</td>
+<td>城镇中黑人的比例</td>
+</tr>
+<tr>
+<td>LSTAT</td>
+<td>人口中地位低下者的比例</td>
+</tr>
+<tr>
+<td>MEDV</td>
+<td>自住房的平均房价</td>
+</tr>
+</tbody>
+</table>
+<p>同样的，我们首先导入数据集（boston_price_full.csv），并观察数据集的样貌。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_boston</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">price_data = pd.read_csv(<span class="string">'boston_price_full.csv'</span>)</span><br><span class="line">price_data.head(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>CRIM</th><th>ZN</th><th>INDUS</th><th>CHAS</th><th>NOX</th><th>RM</th><th>AGE</th><th>DIS</th><th>RAD</th><th>TAX</th><th>PTRATIO</th><th>B</th><th>LSTAT</th><th>MEDV</th></tr></thead><tbody><tr><th>0</th><td>0.00632</td><td>18.0</td><td>2.31</td><td>0</td><td>0.538</td><td>6.575</td><td>65.2</td><td>4.0900</td><td>1</td><td>296</td><td>15.3</td><td>396.90</td><td>4.98</td><td>24.0</td></tr><tr><th>1</th><td>0.02731</td><td>0.0</td><td>7.07</td><td>0</td><td>0.469</td><td>6.421</td><td>78.9</td><td>4.9671</td><td>2</td><td>242</td><td>17.8</td><td>396.90</td><td>9.14</td><td>21.6</td></tr><tr><th>2</th><td>0.02729</td><td>0.0</td><td>7.07</td><td>0</td><td>0.469</td><td>7.185</td><td>61.1</td><td>4.9671</td><td>2</td><td>242</td><td>17.8</td><td>392.83</td><td>4.03</td><td>34.7</td></tr><tr><th>3</th><td>0.03237</td><td>0.0</td><td>2.18</td><td>0</td><td>0.458</td><td>6.998</td><td>45.8</td><td>6.0622</td><td>3</td><td>222</td><td>18.7</td><td>394.63</td><td>2.94</td><td>33.4</td></tr><tr><th>4</th><td>0.06905</td><td>0.0</td><td>2.18</td><td>0</td><td>0.458</td><td>7.147</td><td>54.2</td><td>6.0622</td><td>3</td><td>222</td><td>18.7</td><td>396.90</td><td>5.33</td><td>36.2</td></tr></tbody></table></div>
+
+
+
+<p>接着，我们对数据集使用留出法进行划分。其中75%作为训练集，25%作为测试集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提取X和Y</span></span><br><span class="line">X = price_data.loc[:, price_data.columns != <span class="string">'MEDV'</span>]</span><br><span class="line">Y = price_data[<span class="string">'MEDV'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 划分数据集</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=<span class="number">0.25</span>, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>构建回归决策树模型，使用训练集拟合，并用测试集计算其$R^2$(<code>score</code>)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeRegressor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建模型</span></span><br><span class="line">dt = DecisionTreeRegressor(max_depth=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行拟合</span></span><br><span class="line">dt.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 评估模型（计算score）</span></span><br><span class="line">dt.score(X_test, y_test)</span><br></pre></td></tr></table></figure>
+<pre><code>0.5920940318375818
+</code></pre><p>使用X_test预测y（<code>y_predict</code>）。<br>使用<code>y_test</code>和<code>y_predict</code>可以计算均方根误差(RMSE)。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测y</span></span><br><span class="line">y_predict = dt.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算均方误差</span></span><br><span class="line">Dec_mse = mean_squared_error(y_test, y_predict)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算均方根误差</span></span><br><span class="line">Dec_rmse = np.sqrt(Dec_mse)</span><br><span class="line">Dec_rmse</span><br></pre></td></tr></table></figure>
+<pre><code>5.772825650421667
+</code></pre><h3 id="随堂练习-1"><a href="#随堂练习-1" class="headerlink" title="随堂练习 1"></a>随堂练习 1</h3><p>导入母亲和孩子信息综合数据集(mom_student_data.csv)，命名为mom_student_data,并输出前5行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_student_data = pd.read_csv(<span class="string">'mom_student_data.csv'</span>, index_col=<span class="number">0</span>)</span><br><span class="line">mom_student_data.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>PID</th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>SAMPLE IDENTIFICATION CODE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>0</th><td>9</td><td>3</td><td>1</td><td>1979</td><td>46</td><td>9</td><td>89.0</td><td>6</td><td>3</td><td>1</td><td>1</td><td>3</td><td>45567</td><td>43</td><td>2</td><td>41220.0</td><td>1</td><td>2</td></tr><tr><th>1</th><td>7043</td><td>2</td><td>1</td><td>1981</td><td>47</td><td>4</td><td>75.0</td><td>13</td><td>3</td><td>2</td><td>2</td><td>0</td><td>20959</td><td>78</td><td>2</td><td>40202.0</td><td>2</td><td>0</td></tr><tr><th>2</th><td>8797</td><td>1</td><td>2</td><td>1990</td><td>25</td><td>3</td><td>28.0</td><td>14</td><td>2</td><td>2</td><td>4</td><td>0</td><td>5098</td><td>29</td><td>2</td><td>21774.0</td><td>4</td><td>6</td></tr><tr><th>3</th><td>3040</td><td>2</td><td>1</td><td>1982</td><td>28</td><td>13</td><td>113.0</td><td>7</td><td>3</td><td>1</td><td>1</td><td>1</td><td>57812</td><td>14</td><td>3</td><td>60610.0</td><td>1</td><td>1</td></tr><tr><th>4</th><td>1137</td><td>3</td><td>1</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>5</td><td>3</td><td>1</td><td>3</td><td>2</td><td>64082</td><td>27</td><td>4</td><td>47115.0</td><td>3</td><td>1</td></tr></tbody></table></div>
+
+
+
+<h3 id="随堂练习-2"><a href="#随堂练习-2" class="headerlink" title="随堂练习 2"></a>随堂练习 2</h3><p>删除mom_student_data中的’PID’和’SAMPLE IDENTIFICATION CODE’，重新命名为mom_student_revised并输出前5行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_student_revised = mom_student_data.drop([<span class="string">'PID'</span>,<span class="string">'SAMPLE IDENTIFICATION CODE'</span>], axis=<span class="number">1</span>)</span><br><span class="line">mom_student_revised.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>0</th><td>3</td><td>1</td><td>1979</td><td>46</td><td>9</td><td>89.0</td><td>3</td><td>1</td><td>1</td><td>3</td><td>45567</td><td>43</td><td>2</td><td>41220.0</td><td>1</td><td>2</td></tr><tr><th>1</th><td>2</td><td>1</td><td>1981</td><td>47</td><td>4</td><td>75.0</td><td>3</td><td>2</td><td>2</td><td>0</td><td>20959</td><td>78</td><td>2</td><td>40202.0</td><td>2</td><td>0</td></tr><tr><th>2</th><td>1</td><td>2</td><td>1990</td><td>25</td><td>3</td><td>28.0</td><td>2</td><td>2</td><td>4</td><td>0</td><td>5098</td><td>29</td><td>2</td><td>21774.0</td><td>4</td><td>6</td></tr><tr><th>3</th><td>2</td><td>1</td><td>1982</td><td>28</td><td>13</td><td>113.0</td><td>3</td><td>1</td><td>1</td><td>1</td><td>57812</td><td>14</td><td>3</td><td>60610.0</td><td>1</td><td>1</td></tr><tr><th>4</th><td>3</td><td>1</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>3</td><td>1</td><td>3</td><td>2</td><td>64082</td><td>27</td><td>4</td><td>47115.0</td><td>3</td><td>1</td></tr></tbody></table></div>
+
+
+
+<h3 id="随堂练习-3"><a href="#随堂练习-3" class="headerlink" title="随堂练习 3"></a>随堂练习 3</h3><p>从mom_student_revised数据集中Score作为y，其余数据为X，用train_test_split()切分训练集和测试集(test_size=0.25)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X = mom_student_revised.loc[:, mom_student_revised.columns != <span class="string">'Score'</span>]</span><br><span class="line">y = mom_student_revised[<span class="string">'Score'</span>]</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=<span class="number">0.25</span>, random_state=<span class="number">0</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-4"><a href="#随堂练习-4" class="headerlink" title="随堂练习 4"></a>随堂练习 4</h3><p>建构并训练（拟合）模型。使用test数据(X_test以及y_test)它们计算模型的预测结果$R^2$。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeRegressor</span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line"><span class="comment"># 建构模型</span></span><br><span class="line">dt = DecisionTreeRegressor(max_depth=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line">dt.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算R^2</span></span><br><span class="line">dt.score(X_test,y_test)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>0.5936128595866402
+</code></pre><h3 id="特征的选择"><a href="#特征的选择" class="headerlink" title="特征的选择"></a>特征的选择</h3><p>在选择用来预测的特征时，我们会先查看特征（X候选）和预测目标（Y）之间的相关性。一般来说，当它们之间具有较高的相关性时，我们较可能把该特征放进X中。这样可以在不大幅降低预测结果的基础上提升运算速度。<br><br>现在，让我们来查看波士顿房价数据集中各个特征之间的相关性。一个较为清楚的观察方式是画出热图（heatmap）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算相关性</span></span><br><span class="line">price_data_corr = price_data.corr()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画出热图</span></span><br><span class="line">sns.heatmap(price_data_corr, cmap=<span class="string">"PiYG"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将字体进行旋转</span></span><br><span class="line">plt.xticks(rotation=<span class="number">45</span>)    </span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/23/2-4-决策树模型评估/output_18_0.png" alt="png"></p>
+<p>观察heatmap，我们可以找到颜色比较深（相关性高）的特征，并将它们视为X。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">X = price_data[[<span class="string">'INDUS'</span>, <span class="string">'RM'</span>, <span class="string">'TAX'</span>, <span class="string">'PTRATIO'</span>, <span class="string">'LSTAT'</span>]]</span><br><span class="line">Y = price_data[<span class="string">'MEDV'</span>]</span><br></pre></td></tr></table></figure>
+<p>同样的，我们对数据集做划分——其中75%作为训练集，25%作为测试集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=<span class="number">0.25</span>, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>接着，构建模型，拟合（训练）并评估（测试）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeRegressor</span><br><span class="line"></span><br><span class="line">dt = DecisionTreeRegressor(max_depth=<span class="number">2</span>)</span><br><span class="line">dt.fit(X_train, Y_train)</span><br><span class="line">dt.score(X_test, Y_test)</span><br></pre></td></tr></table></figure>
+<pre><code>0.592094031837582
+</code></pre><h3 id="随堂练习-5"><a href="#随堂练习-5" class="headerlink" title="随堂练习 5"></a>随堂练习 5</h3><p>针对石油数据集画出所有特征的热图（heatmap）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line"><span class="comment"># 计算相关性</span></span><br><span class="line">revised_data_corr = mom_student_revised.corr()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画出热图</span></span><br><span class="line">sns.heatmap(revised_data_corr, center = <span class="number">0</span>, cmap=<span class="string">"YlGnBu"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br><span class="line"><span class="comment">#plt.xticks(rotation=45)    # 将字体进行旋转</span></span><br><span class="line">plt.yticks(rotation=<span class="number">360</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/23/2-4-决策树模型评估/output_26_0.png" alt="png"></p>
+<h3 id="随堂练习-6"><a href="#随堂练习-6" class="headerlink" title="随堂练习 6"></a>随堂练习 6</h3><p>根据热图，我们提取与学生成绩指数(Score), 相关性高的特征(‘HIGHEST GRADE COMPLETED’, ‘TOTAL IQ SCORE’,’TOTAL NET FAMILY INCOME 1979’, ‘TOTAL NET FAMILY INCOME 2014’)设为X。数据中取得训练集和测试集。其中75%作为训练集，25%作为测试集。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X = mom_student_revised[[<span class="string">'HIGHEST GRADE COMPLETED'</span>, <span class="string">'TOTAL IQ SCORE'</span>, </span><br><span class="line">                  <span class="string">'TOTAL NET FAMILY INCOME 1979'</span>, <span class="string">'TOTAL NET FAMILY INCOME 2014'</span>]]</span><br><span class="line">y = mom_student_revised[<span class="string">'Score'</span>]</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.25</span>,random_state=<span class="number">0</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-7"><a href="#随堂练习-7" class="headerlink" title="随堂练习 7"></a>随堂练习 7</h3><p>构建决策回归树模型(dt = DecisionTreeRegressor(max_depth=2))。使用训练数据集训练模型，并通过测试数据集预测模型的R2。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeRegressor</span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line"><span class="comment"># 建构模型</span></span><br><span class="line">dt = DecisionTreeRegressor(max_depth=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line">dt.fit(X_train, y_train)</span><br><span class="line"><span class="comment"># 计算R^2</span></span><br><span class="line">dt.score(X_test, y_test)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<pre><code>0.5416805060255403
+</code></pre><h3 id="参数的选择"><a href="#参数的选择" class="headerlink" title="参数的选择"></a>参数的选择</h3><p>构建模型的时候，我们总是写着max_depth=N，到底这个max_depth如何影响模型？要怎么选择呢？</p>
+<p>这里，我们使用price_data数据集。将’MEDV’作为Y，’INDUS’, ‘RM’, ‘TAX’, ‘PTRATIO’, ‘LSTAT’作为X。直接划分数据集，其中75%作为训练集，25%作为测试集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">X = price_data[[<span class="string">'INDUS'</span>, <span class="string">'RM'</span>, <span class="string">'TAX'</span>, <span class="string">'PTRATIO'</span>, <span class="string">'LSTAT'</span>]]</span><br><span class="line">Y = price_data[<span class="string">'MEDV'</span>]</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=<span class="number">0.25</span>, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>使用for语句构建多个模型，max_depth设定从1到16，并记录这些模型分别使用训练集和测试集计算出的$R^2$。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 预留空间存储score</span></span><br><span class="line">train_score = []</span><br><span class="line">test_score = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定max_depth的范围</span></span><br><span class="line">max_depth = range(<span class="number">1</span>,<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># for语句将所有max_depth遍历</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> max_depth:</span><br><span class="line">    <span class="comment"># 构建模型</span></span><br><span class="line">    dt = DecisionTreeRegressor(max_depth=i)</span><br><span class="line">    <span class="comment"># 训练模型</span></span><br><span class="line">    dt.fit(X_train,y_train)</span><br><span class="line">    <span class="comment"># 分别使用训练集和测试集计算score</span></span><br><span class="line">    train_score.append(dt.score(X_train, y_train))</span><br><span class="line">    test_score.append(dt.score(X_test, y_test))</span><br></pre></td></tr></table></figure>
+<p>将刚才存储的“由训练集和测试集计算出的$R^2$”以数据可视化的方式展示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练集计算的score：蓝色线</span></span><br><span class="line">plt.plot(max_depth, train_score, linewidth=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 测试集计算的score：橘色线</span></span><br><span class="line">plt.plot(max_depth, test_score, linewidth=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">"Score with different depth"</span>)</span><br><span class="line">plt.xlabel(<span class="string">'depth'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'score'</span>)</span><br><span class="line">plt.legend([<span class="string">'Train'</span>, <span class="string">'Test'</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/23/2-4-决策树模型评估/output_36_0.png" alt="png"></p>
+<h3 id="随堂练习-8"><a href="#随堂练习-8" class="headerlink" title="随堂练习 8"></a>随堂练习 8</h3><p>这里，我们使用mom_student_revised数据集。将学业成绩Score作为Y，其余变量作为X。直接划分数据集，其中75%作为训练集，25%作为测试集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X = mom_student_revised.loc[:, mom_student_revised.columns != <span class="string">'Score'</span>]</span><br><span class="line">y = mom_student_revised[<span class="string">'Score'</span>]</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=<span class="number">0.25</span>, random_state=<span class="number">0</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-9"><a href="#随堂练习-9" class="headerlink" title="随堂练习 9"></a>随堂练习 9</h3><p>接着，使用for语句构建多个模型，max_depth设定从1到16，并记录这些模型分别使用训练集和测试集计算出的$R^2$。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 预留空间存储score</span></span><br><span class="line">train_score = []</span><br><span class="line">test_score = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定max_depth的范围</span></span><br><span class="line">max_depth = range(<span class="number">1</span>,<span class="number">16</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line"><span class="comment"># for语句将所有max_depth遍历</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> max_depth:</span><br><span class="line">    <span class="comment"># 构建模型</span></span><br><span class="line">    dt = DecisionTreeRegressor(max_depth=i)</span><br><span class="line">    <span class="comment"># 训练模型</span></span><br><span class="line">    dt.fit(X_train,y_train)</span><br><span class="line">    <span class="comment"># 分别使用训练集和测试集计算score</span></span><br><span class="line">    train_score.append(dt.score(X_train, y_train))</span><br><span class="line">    test_score.append(dt.score(X_test, y_test)) </span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="随堂练习-10"><a href="#随堂练习-10" class="headerlink" title="随堂练习 10"></a>随堂练习 10</h3><p>接着，将刚才存储的“由训练集和测试集计算出的$R^2$”以数据可视化的方式展示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line"><span class="comment"># 训练集计算的score：蓝色线</span></span><br><span class="line">plt.plot(max_depth, train_score, linewidth=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 测试集计算的score：橘色线</span></span><br><span class="line">plt.plot(max_depth, test_score, linewidth=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br><span class="line">plt.title(<span class="string">"Score with different depth"</span>)</span><br><span class="line">plt.xlabel(<span class="string">'depth'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'score'</span>)</span><br><span class="line">plt.legend([<span class="string">'Train'</span>, <span class="string">'Test'</span>])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/23/2-4-决策树模型评估/output_42_0.png" alt="png"></p>
+<h3 id="课后练习-1"><a href="#课后练习-1" class="headerlink" title="课后练习 1"></a>课后练习 1</h3><p>导入学生母亲综合数据集(mom_student_data.csv)，删除PID和SAMPLE IDENTIFICATION CODE并显示前5行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">mom_student_data = pd.read_csv(<span class="string">'mom_student_data.csv'</span>, index_col=<span class="number">0</span>)</span><br><span class="line">mom_student_data = mom_student_data.drop([<span class="string">'PID'</span>,<span class="string">'SAMPLE IDENTIFICATION CODE'</span>], axis=<span class="number">1</span>)</span><br><span class="line">mom_student_data.head(<span class="number">5</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<div><style scoped>    .dataframe tbody tr th:only-of-type {        vertical-align: middle;    }    .dataframe tbody tr th {        vertical-align: top;    }    .dataframe thead th {        text-align: right;    }</style><table border="1" class="dataframe"><thead><tr style="text-align: right;"><th></th><th>childrace</th><th>childsex</th><th>birthyear</th><th>Score</th><th>HIGHEST GRADE COMPLETED</th><th>TOTAL IQ SCORE</th><th>RACIAL</th><th>EMPLOYMENT STATUS 1979</th><th>REGION 1979</th><th>MARITAL STATUS 1979</th><th>TOTAL NET FAMILY INCOME 1979</th><th>AFQT</th><th>EMPLOYMENT STATUS 2014</th><th>TOTAL NET FAMILY INCOME 2014</th><th>REGION 2014</th><th>MARITAL STATUS 2014</th></tr></thead><tbody><tr><th>0</th><td>3</td><td>1</td><td>1979</td><td>46</td><td>9</td><td>89.0</td><td>3</td><td>1</td><td>1</td><td>3</td><td>45567</td><td>43</td><td>2</td><td>41220.0</td><td>1</td><td>2</td></tr><tr><th>1</th><td>2</td><td>1</td><td>1981</td><td>47</td><td>4</td><td>75.0</td><td>3</td><td>2</td><td>2</td><td>0</td><td>20959</td><td>78</td><td>2</td><td>40202.0</td><td>2</td><td>0</td></tr><tr><th>2</th><td>1</td><td>2</td><td>1990</td><td>25</td><td>3</td><td>28.0</td><td>2</td><td>2</td><td>4</td><td>0</td><td>5098</td><td>29</td><td>2</td><td>21774.0</td><td>4</td><td>6</td></tr><tr><th>3</th><td>2</td><td>1</td><td>1982</td><td>28</td><td>13</td><td>113.0</td><td>3</td><td>1</td><td>1</td><td>1</td><td>57812</td><td>14</td><td>3</td><td>60610.0</td><td>1</td><td>1</td></tr><tr><th>4</th><td>3</td><td>1</td><td>2001</td><td>78</td><td>15</td><td>80.0</td><td>3</td><td>1</td><td>3</td><td>2</td><td>64082</td><td>27</td><td>4</td><td>47115.0</td><td>3</td><td>1</td></tr></tbody></table></div>
+
+
+
+<h3 id="课后练习-2"><a href="#课后练习-2" class="headerlink" title="课后练习 2"></a>课后练习 2</h3><p>观察所有特征之间的相关性。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line"><span class="comment"># 计算相关性</span></span><br><span class="line">data_corr = mom_student_data.corr()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画出热图，仔细看热图旁边的图示告诉你什么</span></span><br><span class="line">sns.heatmap(data_corr, cmap=<span class="string">"PiYG"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br><span class="line"><span class="comment"># 将字体进行旋转</span></span><br><span class="line">plt.xticks()    </span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/23/2-4-决策树模型评估/output_46_0.png" alt="png"></p>
+<h3 id="课后练习-3"><a href="#课后练习-3" class="headerlink" title="课后练习 3"></a>课后练习 3</h3><p>提取mom_student_data中的’HIGHEST GRADE COMPLETED’, ‘TOTAL IQ SCORE’, ‘TOTAL NET FAMILY INCOME 1979’, ‘TOTAL NET FAMILY INCOME 2014’,’MARITAL STATUS 1979’,’MARITAL STATUS 2014’作为X，’Score’作为y。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line">X = mom_student_data[[<span class="string">'HIGHEST GRADE COMPLETED'</span>, <span class="string">'TOTAL IQ SCORE'</span>,<span class="string">'MARITAL STATUS 1979'</span>,<span class="string">'MARITAL STATUS 2014'</span>, </span><br><span class="line">                  <span class="string">'TOTAL NET FAMILY INCOME 1979'</span>, <span class="string">'TOTAL NET FAMILY INCOME 2014'</span>]]</span><br><span class="line">y = mom_student_data[<span class="string">'Score'</span>]</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.25</span>,random_state=<span class="number">0</span>)</span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="课后练习-4"><a href="#课后练习-4" class="headerlink" title="课后练习 4"></a>课后练习 4</h3><p>记入不同max_depth(1到10)的train和test的score值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"></span><br><span class="line">train_score = []</span><br><span class="line">test_score = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定max_depth的范围</span></span><br><span class="line">max_depth = range(<span class="number">1</span>,<span class="number">11</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line"><span class="comment"># for语句将所有max_depth遍历</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> max_depth:</span><br><span class="line">    <span class="comment"># 构建模型</span></span><br><span class="line">    dt = DecisionTreeRegressor(max_depth=i)</span><br><span class="line">    <span class="comment"># 训练模型</span></span><br><span class="line">    dt.fit(X_train,y_train)</span><br><span class="line">    <span class="comment"># 分别使用训练集和测试集计算score</span></span><br><span class="line">    train_score.append(dt.score(X_train, y_train))</span><br><span class="line">    test_score.append(dt.score(X_test, y_test)) </span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br></pre></td></tr></table></figure>
+<h3 id="课后练习-5"><a href="#课后练习-5" class="headerlink" title="课后练习 5"></a>课后练习 5</h3><p>将不同<code>max_depth</code>模型的$R^2$画出，观察哪一个数值最合适。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># grader format</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">### BEGIN SOLUTION</span></span><br><span class="line"><span class="comment"># 训练集计算的score：蓝色线</span></span><br><span class="line">plt.plot(max_depth, train_score, linewidth=<span class="number">2</span>)</span><br><span class="line"><span class="comment"># 测试集计算的score：橘色线</span></span><br><span class="line">plt.plot(max_depth, test_score, linewidth=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### END SOLUTION</span></span><br><span class="line">plt.title(<span class="string">"Score with different depth"</span>)</span><br><span class="line">plt.xlabel(<span class="string">'depth'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'score'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/23/2-4-决策树模型评估/output_52_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>Post author:  </strong>Xdh
+          </li>
+          <li class="post-copyright-link">
+          <strong>Post link:  </strong>
+          <a href="/2019/05/23/2-4-决策树模型评估/" target="_blank" title="2.4 决策树模型评估">http://yoursite.com/2019/05/23/2-4-决策树模型评估/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>Copyright Notice:   </strong>
+            All articles in this blog are licensed under <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            unless stating additionally.
+          </li>
+         
+        </ul>
+<div>
+</div></div>
+      
+      
+      
+        
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/23/2-3-决策树模型使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          2.3 决策树模型使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/23/2-2-决策树模型简介/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2.2 决策树模型简介</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#决策树模型评估"><span class="nav-number">1.</span> <span class="nav-text">决策树模型评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#R-2-和均方根误差（score-amp-RMSE）"><span class="nav-number">1.1.</span> <span class="nav-text">$R^2$和均方根误差（score &amp; RMSE）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#波士顿房价案例"><span class="nav-number">1.1.1.</span> <span class="nav-text">波士顿房价案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-1"><span class="nav-number">1.2.</span> <span class="nav-text">随堂练习 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-2"><span class="nav-number">1.3.</span> <span class="nav-text">随堂练习 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-3"><span class="nav-number">1.4.</span> <span class="nav-text">随堂练习 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-4"><span class="nav-number">1.5.</span> <span class="nav-text">随堂练习 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征的选择"><span class="nav-number">1.6.</span> <span class="nav-text">特征的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-5"><span class="nav-number">1.7.</span> <span class="nav-text">随堂练习 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-6"><span class="nav-number">1.8.</span> <span class="nav-text">随堂练习 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-7"><span class="nav-number">1.9.</span> <span class="nav-text">随堂练习 7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数的选择"><span class="nav-number">1.10.</span> <span class="nav-text">参数的选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-8"><span class="nav-number">1.11.</span> <span class="nav-text">随堂练习 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-9"><span class="nav-number">1.12.</span> <span class="nav-text">随堂练习 9</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随堂练习-10"><span class="nav-number">1.13.</span> <span class="nav-text">随堂练习 10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-1"><span class="nav-number">1.14.</span> <span class="nav-text">课后练习 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-2"><span class="nav-number">1.15.</span> <span class="nav-text">课后练习 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-3"><span class="nav-number">1.16.</span> <span class="nav-text">课后练习 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-4"><span class="nav-number">1.17.</span> <span class="nav-text">课后练习 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习-5"><span class="nav-number">1.18.</span> <span class="nav-text">课后练习 5</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2019 - 2019 Xdh All Rights Reserved.</p>
+	      
+	      
+  		   	<p id="copyRightCn">Xdh hold copyright</p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Xdh
+          </div>
+          <div class="panel-body">
+            Copyright © 2019 Xdh All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
